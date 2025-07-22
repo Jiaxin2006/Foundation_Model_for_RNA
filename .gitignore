@@ -7,7 +7,9 @@ nni_pre_logs/
 outs/
 re-pretrained/
 results/
-
+PEER_Benchmark/
 __pycache__/
 
 *.out
+
+!configs/cnn-kmer1/
