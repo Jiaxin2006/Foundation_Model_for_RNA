@@ -1,5 +1,6 @@
 .vscode/
 envs/
+!configs/cnn-kmer1/
 configs/
 datasets/
 
@@ -12,4 +13,3 @@ __pycache__/
 
 *.out
 
-!configs/cnn-kmer1/
