@@ -9,6 +9,7 @@ Original file is located at
     https://colab.research.google.com/drive/1wyVEQd4R3HYLTUOXEEQmp_I8aNC_aLhL
 
 
+Heyna 基础模型代码部分，不用改
 """
 
 #@title Imports
@@ -212,8 +213,9 @@ class HyenaFilter(OptimModule):
         h = self.implicit_filter(z)
         h = self.modulation(t, h)
         return h
-
-    def forward(self, x, L, k=None, bias=None, *args, **kwargs):
+    
+    def forward(self, x, L=None, k=None, bias=None, *args, **kwargs):
+        if L is None: L = x.size(1)
         if k is None: k = self.filter(L)
 
         # Ensure compatibility with filters that return a tuple

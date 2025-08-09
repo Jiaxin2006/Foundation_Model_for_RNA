@@ -29,6 +29,7 @@ import os
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+# 针对每个实验所用的参数：模型、tokenizer、dimension等
 @dataclass
 class ModelConfig:
     experiment_name: str = "debug"
@@ -37,16 +38,16 @@ class ModelConfig:
     tokenizer_name: str = "kmer-1"
     data_usage_rate: float = 0.3
 
-    ## dimension
+    ## dimension，从哪些维度中选
     embedding_dim: int = 64
     hidden_dim_list: List[int] = field(default_factory=lambda: [64, 128, 256, 512])
     max_representatives_per_group: int = 5
     
-    ## layer_type
+    ## layer_type，3层（不同模型架构的组合）的选5个
     architecture_list: List[str] = field(default_factory=lambda: ["cnn","gru","transformer","mamba","hyena"])
     layer_nums_dict: Dict[str, int] = field(default_factory=lambda: {"3": 5, "4": 10, "5": 10})
     
-    ## flags
+    ## flags，是否已经生成过这个架构
     architecture_config_flag: bool = False
 
     @staticmethod
@@ -56,6 +57,24 @@ class ModelConfig:
         return ModelConfig(**data)
 
 
+def register_shape_hooks(model):
+    def hook_fn(module, input, output):
+        class_name = module.__class__.__name__
+        module_idx = len(shape_info)
+        m_key = f"{module_idx:02d}-{class_name}"
+        # 记录输入输出 shape
+        shape_info[m_key] = {
+            "input_shape": [tuple(t.shape) for t in input if hasattr(t, "shape")],
+            "output_shape": tuple(output.shape) if hasattr(output, "shape") else str(type(output))
+        }
+        print(f"[ShapeTracer] {m_key} | in: {shape_info[m_key]['input_shape']} | out: {shape_info[m_key]['output_shape']}")
+
+    shape_info = {}
+    for name, module in model.named_modules():
+        # 跳过容器类模块，防止信息过多
+        if not list(module.children()):
+            module.register_forward_hook(hook_fn)
+    return shape_info
 
 
 class ContrastiveLearning_ModelSpace(ModelSpace):
@@ -86,7 +105,7 @@ class ContrastiveLearning_ModelSpace(ModelSpace):
         self.embedding = nn.Embedding(num_embeddings=vocab_size, embedding_dim=self.embedding_dim, padding_idx=pad_idx)
 
         # generate architecthre configs
-        architecture_config_path = f"/projects/slmreasoning/yifang/configs/{self.experiment_name}/architecture_configs.json"
+        architecture_config_path = f"/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/configs/{self.experiment_name}/architecture_configs.json"
         if not self.architecture_config_flag:
             logger.info("Building architecture configs....")
 
@@ -113,7 +132,7 @@ class ContrastiveLearning_ModelSpace(ModelSpace):
                 data = json.load(f)
                 self.architecture_config_list = data["architecture_config_list"]
 
-        # Shared Modules
+        # Shared Modules，把每一个用到的module初始化
         logger.info(f"Building shared modules....")
         self.module_set = extract_layer_sets(self.architecture_config_list)
         logger.info(f"self.module_set is {self.module_set}")
@@ -127,12 +146,12 @@ class ContrastiveLearning_ModelSpace(ModelSpace):
             key = f"{layer_type}_{input_dim}_{output_dim}"
             try:
                 module = build_module(layer_type, input_dim, output_dim)
-                self.module_pools[key] = module
+                self.module_pools[key] = module     # 构建一个module的pool
             except ValueError as e:
                 print(f"Skipping module due to error: {e} for config: {config}")
     
         #logger.info(f"self.module_pools is {self.module_pools}")
-
+        # 用module组成的不同的path，是什么样子
         logger.info(f"Creating LayerChoices....")
         self.paths_candidates = OrderedDict()
         for i, configs in enumerate(tqdm(self.architecture_config_list, desc="Building Paths")):
@@ -142,7 +161,7 @@ class ContrastiveLearning_ModelSpace(ModelSpace):
                 input_dim = config["input_dim"]
                 output_dim = config["output_dim"]
                 key = f"{layer_type}_{input_dim}_{output_dim}"
-                block = self.module_pools[key]
+                block = self.module_pools[key]      # 从pool中把每一个module用key筛选出来
                 layers.append(block)
             
             self.paths_candidates[f"path_{i}"] = nn.Sequential(*layers)
@@ -150,12 +169,12 @@ class ContrastiveLearning_ModelSpace(ModelSpace):
         # 用LayerChoice选path结构
         self.path = LayerChoice(self.paths_candidates, label="path")
         last_layer = list(self.path.children())[-1]
-        if isinstance(last_layer, (MambaModule, RNNModule, GRUModule, LSTMModule)):
+        if isinstance(last_layer, (MambaModule, RNNModule, GRUModule, LSTMModule)):     # 单向模型取pooling不是很合理
             self.pooling_flag = False
         else:
             self.pooling_flag = True
 
-    def masked_average_pooling(self, x, attention_mask):
+    def masked_average_pooling(self, x, attention_mask):    # 通过attention 把padding的部分去掉 不影响后续计算
         mask_expanded = attention_mask.unsqueeze(-1).float() 
         x_masked = x * mask_expanded 
         lengths = attention_mask.sum(dim=1).float().unsqueeze(-1) 
@@ -205,13 +224,14 @@ class MaskedModeling_ModelSpace(ModelSpace):
         # architecture
         self.layer_nums_dict = config.layer_nums_dict
         self.architecture_list = config.architecture_list
+
         self.architecture_config_flag = config.architecture_config_flag
 
         # embedding layer
         self.embedding = nn.Embedding(num_embeddings=vocab_size, embedding_dim=self.embedding_dim, padding_idx=self.pad_idx)
 
         # generate architecthre configs
-        architecture_config_path = f"/projects/slmreasoning/yifang/configs/{self.experiment_name}/architecture_configs.json"
+        architecture_config_path = f"/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/configs/{self.experiment_name}/architecture_configs.json"
         if not self.architecture_config_flag:
             logger.info("Building architecture configs....")
 
@@ -224,7 +244,6 @@ class MaskedModeling_ModelSpace(ModelSpace):
             logger.info(f"dim_config_list length is {len(self.dim_config_list)}")
             logger.info(f"layer_types_config_list length is {len(self.layer_types_config_list)}")
             self.architecture_config_list = merge_configs(self.dim_config_list, self.layer_types_config_list, self.embedding_dim)
-            
 
             os.makedirs(os.path.dirname(architecture_config_path), exist_ok=True)
             with open(architecture_config_path, "w") as f:
@@ -281,11 +300,17 @@ class MaskedModeling_ModelSpace(ModelSpace):
 
     def forward(self, input_ids):
         # input_ids: [batch_size, seq_len]
+        # print(f"输入形状: {input_ids.shape}")
         x = self.embedding(input_ids)
+        # print(f"嵌入后: {x.shape}")
+        
         x = self.path(x)
+        # print(f"路径后: {x.shape}")
+        
         logits = self.pred_head(x)
-        logits = logits.permute(0, 2, 1)
-        return logits
+        # print(f"预测头后: {logits.shape}")
+        
+        return logits.permute(0, 2, 1)
 
 
 class ContrastiveLearning_PretrainModel(LightningModule):
@@ -293,6 +318,7 @@ class ContrastiveLearning_PretrainModel(LightningModule):
         super().__init__()
         model = ContrastiveLearning_ModelSpace(config=config)
         self.set_model(model)
+        # shape_info = register_shape_hooks(self.model)
 
     def forward(self, x):
         # x: [batch_size, seq_len]
@@ -324,6 +350,7 @@ class MaskedModeling_PretrainModel(LightningModule):
         self.set_model(model)
         self.pad_idx = model.pad_idx
         self.loss_fn = nn.CrossEntropyLoss(ignore_index=self.pad_idx)
+        # shape_info = register_shape_hooks(self.model)
 
     def forward(self, x):
         logits = self.model(x)
@@ -346,19 +373,24 @@ class MaskedModeling_PretrainModel(LightningModule):
         loss = self.loss_fn(logits, target)
         return loss
 
+    # new，TODO
+    def configure_optimizers(self):
+        return torch.optim.Adam(self.model.parameters(), lr=1e-3)
 
 
+# 模型评估部分，把整个模型固定下来之后做聚类
+# TODO：添加类似的 FixedModel
 class CLS_FixedModel(nn.Module):
     def __init__(self, num_classes, embedding, path: nn.Sequential, mask_pred_head: nn.Linear = None):
         super().__init__()
         self.embedding = embedding
         self.path = path
-        if mask_pred_head is None:
+        if mask_pred_head is None:  # 如果是masked modeling会有pred_head，相当于把它删掉重新训练
             self.mask_pred_head = nn.Identity()
         else:
             self.mask_pred_head = mask_pred_head
 
-        self.cls_head = nn.LazyLinear(num_classes)
+        self.cls_head = nn.LazyLinear(num_classes)  # 加入分类的cls_head; LazyLinear：不能确定输入的维度时，可以不写，会自动识别
 
         last_layer = list(self.path.children())[-1]
         if isinstance(last_layer, (MambaModule, RNNModule, GRUModule, LSTMModule)):
@@ -391,18 +423,22 @@ class CLS_FixedModel(nn.Module):
             feature = self.masked_average_pooling(x, attention_mask)
         else:
             feature = self.masked_last_token(x, attention_mask)
-        mask_pred_logits = self.mask_pred_head(x).permute(0,2,1)
-        cls_logit = self.cls_head(feature)
+        mask_pred_logits = self.mask_pred_head(x).permute(0,2,1)    # 这里保留pred_head是因为之前做了repre
+        cls_logit = self.cls_head(feature)      # 做classification
 
         return cls_logit, feature, mask_pred_logits
 
+class Cluster_FixedModel(nn.Module):
+    def a():
+        return 1
 
+# 从头开始做预训练过程
 class Contrastive_FixedModel(nn.Module):
     def __init__(self, experiment_name, model_index, tokenizer_name, embedding_dim):
         super().__init__()
         self.experiment_name = experiment_name
         self.model_index = model_index
-        self.path = build_model_with_index(experiment_name, model_index)
+        self.path = build_model_with_index(experiment_name, model_index)    # 从前面的架构中挑选表现较好的模型做评估
         self.tokenizer_name = tokenizer_name
         self.tokenizer = MyTokenizer(self.tokenizer_name)
         pad_idx = self.tokenizer.token_to_id("[PAD]")

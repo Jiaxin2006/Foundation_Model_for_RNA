@@ -14,6 +14,7 @@ import json
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+# 放loss等工具
 def calculate_contrastive_loss(emb_1, emb_2, temperature=0.5):
     """
     Args:
@@ -128,7 +129,7 @@ def generate_layer_type_configs(architecture_list, layer_nums_dict):
 
 
 
-
+# 把dimension和module的组合结合在一起
 def merge_configs(dim_config_list, layer_type_config_list, embedding_dim):
     dim_buckets = defaultdict(list)
     type_buckets = defaultdict(list)
@@ -171,7 +172,7 @@ def extract_layer_sets(config_list):
     return unique_layers
 
 
-
+# 根据数组组合出最终的model
 def build_model_with_index(experiment_name, model_index):
     architecture_config_path = f"/projects/slmreasoning/yifang/configs/{experiment_name}/architecture_configs.json"
     with open(architecture_config_path, "r") as f:

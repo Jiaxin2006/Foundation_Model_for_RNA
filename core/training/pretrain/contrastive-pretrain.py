@@ -31,7 +31,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     experiment_name = args.experiment_name
 
-    config_path = f"/projects/slmreasoning/yifang/configs/{experiment_name}"
+    config_path = f"/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/configs/{experiment_name}"
     architecture_config_flie = os.path.join(config_path, "architecture_configs.json")
     config = ModelConfig.from_json(os.path.join(config_path, "searchSpace_configs.json"))
     if experiment_name != config.experiment_name:
@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
 
 
-    jsonl_file = "/projects/slmreasoning/yifang/datasets/GRCh38/processed_data/filtered_sentences.jsonl"
+    jsonl_file = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/cleaned_rna.jsonl"
     dataset = DNAContrastiveDataset(jsonl_file, data_usage_rate=data_usage_rate, tokenizer_name=config.tokenizer_name)
 
     total_size = len(dataset)
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     
     Contrastive_Pretrain_Model = ContrastiveLearning_PretrainModel(config)
     
-    log_dir = f"/projects/slmreasoning/yifang/nni_pre_logs/contrastive/{experiment_name}"
+    log_dir = f"/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/nni_pre_logs/contrastive/{experiment_name}"
 
     checkpoint_callback = ModelCheckpoint(
         dirpath=log_dir,
@@ -79,6 +79,8 @@ if __name__ == "__main__":
         batch_size = 256
         if 'mamba' in experiment_name:
             batch_size = 128
+    elif "hyena" in experiment_name:
+        batch_size = 16
     else:
         batch_size=512
 

@@ -4,6 +4,15 @@ import torch.nn as nn
 import numpy as np
 import pandas as pd
 import re
+# gai
+import os
+import time
+from pathlib import Path
+from Bio import SeqIO
+from sklearn.cluster import KMeans
+from sklearn.metrics import adjusted_rand_score, homogeneity_score, completeness_score
+from core.data_utils.mytokenizers import MyTokenizer
+
 from core.data_utils.dataset import DNAContrastiveDataset,FTDNADataset,DNAMaskDataset
 from core.models.model import CLS_FixedModel
 from core.models.utils import calculate_contrastive_loss
@@ -12,10 +21,33 @@ import random
 from torch.utils.data import DataLoader
 import logging
 from transformers import get_linear_schedule_with_warmup 
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
+def load_rna_clustering(data_dir):
+    """
+    从 data_dir 下的每个文件读取 RNA 序列，
+    假设每个文件对应一个 family，文件名就是类别名。
+    返回：
+      sequences: List[str]，所有序列
+      labels:    List[int]，对应的真是 family 索引
+      label_names: List[str]，family 名称列表
+    """
+    sequences = []
+    labels = []
+    label_names = []
+    for idx, fasta_path in enumerate(sorted(Path(data_dir).glob("*.fa*"))):
+        label = fasta_path.stem
+        label_names.append(label)
+        for rec in SeqIO.parse(str(fasta_path), "fasta"):
+            sequences.append(str(rec.seq))
+            labels.append(idx)
+    # print(sequences)
+    # print(labels)
+    # print(label_names)
+    return sequences, labels, label_names
 
 
 def set_seed(seed: int = 42):
@@ -94,9 +126,48 @@ def build_all_models(num_classes, model_space):
 
     return all_models
 
+# gai
+def align_train_epoch(model, device, train_loader, optimizer, scheduler):
+    model.train()
+    for idsA, idsB, contact in train_loader:
+        idsA, idsB, contact = idsA.to(device), idsB.to(device), contact.to(device)
+        optimizer.zero_grad()
+        # 用 embedding 做打分矩阵
+        emA = model.embedding(idsA)
+        emB = model.embedding(idsB)
+        score = torch.einsum("bid,bjd->bij", emA, emB)  # [B, L1, L2]
+        loss = F.binary_cross_entropy_with_logits(score, contact)
+        loss.backward()
+        optimizer.step()
+        scheduler.step()
 
+def align_eval_epoch(model, device, val_loader):
+    model.eval()
+    tp = fp = fn = 0
+    with torch.no_grad():
+        for idsA, idsB, contact in val_loader:
+            idsA, idsB, contact = idsA.to(device), idsB.to(device), contact.to(device)
+            emA = model.embedding(idsA)   # [B, L1, d]
+            emB = model.embedding(idsB)   # [B, L2, d]
+            score = torch.einsum("bid,bjd->bij", emA, emB)  # [B, L1, L2]
+            pred = (torch.sigmoid(score) > 0.5).int()
+            contact = contact.int() 
 
+            # 逐样本累加
+            for b in range(contact.size(0)):
+                c_true = contact[b]      # [L1, L2]
+                c_pred = pred[b]         # [L1, L2]
+                tp += (c_pred & c_true).sum().item()
+                fp += (c_pred & (~c_true)).sum().item()
+                fn += ((~c_pred) & c_true).sum().item()
 
+    sen = tp / (tp + fn + 1e-8)
+    ppv = tp / (tp + fp + 1e-8)
+    f1  = 2 * sen * ppv / (sen + ppv + 1e-8)
+    return f1, sen, ppv
+
+# TODO: 写其他任务的训练
+# 这里已经把预训练好的参数固定好成为一个单独的模型（也就是说对当前任务的finetune不会影响到其他任务）
 def cls_train_epoch(model, device, train_loader, optimizer, scheduler):
     set_seed()
     loss_fn = torch.nn.CrossEntropyLoss()
@@ -150,7 +221,7 @@ def cls_test_epoch(model, device, test_loader):
     return accuracy
 
 
-
+# 整体的finetune评估流程
 def cls_evaluate_model(experiment_name, freeze_flag, model, task_index, tokenizer_name):
     set_seed()
     if 'mamba' in experiment_name:
@@ -158,6 +229,7 @@ def cls_evaluate_model(experiment_name, freeze_flag, model, task_index, tokenize
     else:
         lr = 3e-5
     #lr = 3e-5
+    # 参照之前文章设置的预训练参数
     if task_index in [0,1,2,3,4]:
         num_epochs = 3
     elif task_index in [7,10]:
@@ -204,6 +276,78 @@ def cls_evaluate_model(experiment_name, freeze_flag, model, task_index, tokenize
 
     return final_accuracy
 
+# gai
+def embed_sequences(sequences, model, tokenizer_name):
+    """
+    对一批序列生成 embedding。
+    """
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+    model.to(device)
+    model.eval()
+    all_feats = []
+    start = time.time()
+    batch_size = 1 # ns
+    tokenizer = MyTokenizer(tokenizer_name)
+    pad_idx = tokenizer.token_to_id("[PAD]")
+
+    with torch.no_grad():
+        all_encodings = [tokenizer.encode(seq) for seq in sequences]
+        all_ids = [enc.ids for enc in all_encodings]
+
+        max_len = max(len(ids) for ids in all_ids)
+        # print(max_len)
+        # print("First 3 sequences:")
+        # for s in sequences[:3]:
+        #     print(s)
+
+  
+        for i in range(0, len(sequences), batch_size):
+            batch = sequences[i:i+batch_size]
+            batch_ids = all_ids[i:i+batch_size]
+
+            # print(batch)
+            # print(batch_ids)
+            
+            # 创建填充后的 input_ids 和 attention_mask
+            input_ids_batch = []
+            attention_mask_batch = []
+
+            for ids in batch_ids:
+                # 填充序列
+                pad_len = max_len - len(ids)
+                padded_ids = ids + [pad_idx] * pad_len
+                mask = [1] * len(ids) + [0] * pad_len
+                input_ids_batch.append(padded_ids)
+                attention_mask_batch.append(mask)
+                # print(input_ids_batch)
+            
+            input_ids = torch.tensor(input_ids_batch, device=device)
+            attention_mask = torch.tensor(attention_mask_batch, device=device)
+
+            _, feats, _ = model(input_ids, attention_mask)
+            all_feats.append(feats.cpu())
+    embeddings = torch.cat(all_feats, dim=0).numpy()
+    embed_time = time.time() - start
+    return embeddings, embed_time
+
+def cluster_and_evaluate(embeddings, true_labels, n_clusters):
+    """
+    用 KMeans 做聚类，并计算 ARI、Homogeneity、Completeness，以及聚类耗时。
+    """
+    start = time.time()
+    km = KMeans(n_clusters=n_clusters, random_state=42)
+    pred = km.fit_predict(embeddings)
+    cluster_time = time.time() - start
+
+    ari = adjusted_rand_score(true_labels, pred)
+    hom = homogeneity_score(true_labels, pred)
+    comp = completeness_score(true_labels, pred)
+    return {
+        "ARI": ari,
+        "Homogeneity": hom,
+        "Completeness": comp,
+        "Time (s)": cluster_time
+    }
 
 
 def continual_contrastive_pretrain(model, task_index, tokenizer_name, data_usage_rate, epoch_num=5):

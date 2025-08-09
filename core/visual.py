@@ -7,6 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from core.data_utils.mytokenizers import MyTokenizer
 
+# 可视化结果
 task_index_name_map = {
         0: "Transcription Factor Prediction-0",
         1: "Transcription Factor Prediction-1",
@@ -370,8 +371,9 @@ def plot_within_one_arc_heatmap(
 
 if __name__ == "__main__":
     all_data = []
-    base_path = "/projects/slmreasoning/yifang/results"
-
+    base_path = "/u/yfang4/projects/jiaxin/NAS-for-Bio/results"
+    
+    # 自动读取结果
     for experiment_name in os.listdir(base_path):
         experiment_path = os.path.join(base_path, experiment_name)
         if not os.path.isdir(experiment_path):
@@ -465,7 +467,7 @@ if __name__ == "__main__":
         tokenizer="kmer1",
         training_strategy="only-ft",
         epoch=1,
-        base_save_path="/projects/slmreasoning/yifang/results/figures/"
+        base_save_path="/u/yfang4/projects/jiaxin/NAS-for-Bio/results/figures/"
     )
 
     '''

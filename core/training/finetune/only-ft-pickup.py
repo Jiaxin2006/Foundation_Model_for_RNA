@@ -17,7 +17,7 @@ from tqdm import tqdm
 import argparse
 from core.models.training_utils import set_seed, cls_evaluate_model, continual_mask_pretrain, continual_contrastive_pretrain, build_all_models
 
-
+# pickup：从断点继续跑实验
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="实验参数配置")
     parser.add_argument(
@@ -46,12 +46,12 @@ if __name__ == "__main__":
         11: "Splice Site Detection"
     }
     ckpt_epoch_num_list = [0]
-    config = ModelConfig.from_json(f"/projects/slmreasoning/yifang/configs/{experiment_name}/searchSpace_configs.json")
+    config = ModelConfig.from_json(f"work/hdd/begl/yfang4/projectsjiaxin/NAS-for-Bio/configs/{experiment_name}/searchSpace_configs.json")
     config.architecture_config_flag = True
     tokenizer_name = config.tokenizer_name
     data_usage_rate = config.data_usage_rate
     Pretrained_ModelSpace = ContrastiveLearning_ModelSpace(config)
-    output_dir = f"/projects/slmreasoning/yifang/results/{experiment_name}/"
+    output_dir = f"work/hdd/begl/yfang4/projectsjiaxin/NAS-for-Bio/results/{experiment_name}/"
     os.makedirs(output_dir, exist_ok=True)
     csv_file_path = output_dir + "only-ft_results.csv"
     if not os.path.exists(csv_file_path):

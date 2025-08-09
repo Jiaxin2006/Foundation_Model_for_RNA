@@ -71,526 +71,518 @@
       "A": 5,
       "C": 6,
       "G": 7,
-      "T": 8,
-      "TT": 9,
-      "AA": 10,
-      "TG": 11,
+      "U": 8,
+      "AA": 9,
+      "UG": 10,
+      "CC": 11,
       "AG": 12,
-      "CC": 13,
-      "TC": 14,
+      "UU": 13,
+      "UC": 14,
       "AC": 15,
       "GG": 16,
-      "ATT": 17,
-      "AT": 18,
-      "ATG": 19,
-      "GC": 20,
-      "TAA": 21,
-      "TCC": 22,
-      "ACC": 23,
-      "AAAA": 24,
-      "AGG": 25,
-      "AGC": 26,
-      "ATC": 27,
-      "TTC": 28,
-      "AAG": 29,
-      "TTTT": 30,
-      "TGC": 31,
-      "TGG": 32,
-      "AAC": 33,
-      "TTG": 34,
-      "TAG": 35,
-      "TAC": 36,
-      "CCC": 37,
-      "TATT": 38,
-      "TGGG": 39,
-      "AGAA": 40,
-      "TAT": 41,
-      "AGGG": 42,
-      "TTTC": 43,
-      "AGGC": 44,
-      "TGTG": 45,
-      "AGCC": 46,
-      "ATAA": 47,
-      "ATTC": 48,
-      "TTGG": 49,
-      "ACAC": 50,
-      "AAGG": 51,
-      "TCCC": 52,
-      "TCTC": 53,
-      "TATG": 54,
-      "TTTG": 55,
-      "TTCC": 56,
+      "UGG": 17,
+      "AU": 18,
+      "AAG": 19,
+      "AGG": 20,
+      "UGC": 21,
+      "ACC": 22,
+      "UCC": 23,
+      "AUU": 24,
+      "AGC": 25,
+      "AUG": 26,
+      "AAC": 27,
+      "AUC": 28,
+      "UUC": 29,
+      "UUG": 30,
+      "CCC": 31,
+      "UAA": 32,
+      "GC": 33,
+      "AAAA": 34,
+      "UGGG": 35,
+      "UAC": 36,
+      "AGGG": 37,
+      "AGCC": 38,
+      "AGAA": 39,
+      "UGGC": 40,
+      "AGGC": 41,
+      "AAGG": 42,
+      "UGCC": 43,
+      "AAGC": 44,
+      "UUCC": 45,
+      "UAG": 46,
+      "UCCC": 47,
+      "AUGG": 48,
+      "UUUU": 49,
+      "AGAC": 50,
+      "UGUG": 51,
+      "UCUC": 52,
+      "ACCC": 53,
+      "AUCC": 54,
+      "AUUC": 55,
+      "UGAA": 56,
       "AGAG": 57,
-      "ATGG": 58,
-      "AAAC": 59,
-      "AGTG": 60,
-      "ACCC": 61,
-      "TGCC": 62,
-      "AGAC": 63,
-      "ATTG": 64,
-      "ATCC": 65,
-      "ATGC": 66,
-      "ATAC": 67,
-      "TCAC": 68,
-      "TGAA": 69,
-      "TGGC": 70,
-      "TTAA": 71,
-      "TTGC": 72,
-      "TAAG": 73,
-      "TATC": 74,
-      "TCTG": 75,
-      "TAAC": 76,
-      "AAAG": 77,
-      "GGG": 78,
-      "AAGC": 79,
-      "TTAC": 80,
-      "GGC": 81,
-      "ATAT": 82,
-      "TAGC": 83,
-      "TACC": 84,
-      "AACC": 85,
-      "AATG": 86,
-      "TAGG": 87,
-      "ATATT": 88,
-      "GCC": 89,
-      "AGTC": 90,
-      "TTTTC": 91,
-      "TGAC": 92,
-      "AAAAC": 93,
-      "AATC": 94,
-      "TTTAA": 95,
-      "AAAAG": 96,
-      "TGTC": 97,
-      "ATAG": 98,
-      "TTATT": 99,
-      "TTTTG": 100,
-      "TGAG": 101,
-      "AATT": 102,
-      "AAATT": 103,
-      "ACAG": 104,
-      "TTTCC": 105,
-      "AATAA": 106,
-      "ACTC": 107,
-      "AGGCC": 108,
-      "ATTTC": 109,
-      "AAATG": 110,
-      "TGGGC": 111,
-      "ACG": 112,
-      "TCAG": 113,
-      "ACTG": 114,
-      "TTAG": 115,
-      "ATATG": 116,
-      "TGGCC": 117,
-      "ACAA": 118,
-      "ATCTC": 119,
-      "TATTC": 120,
-      "TGTAA": 121,
-      "ATTCC": 122,
-      "ACTT": 123,
-      "AAAT": 124,
-      "ATGCC": 125,
-      "AAAAAAAA": 126,
-      "TTTGC": 127,
-      "TTTAG": 128,
-      "TTCCC": 129,
-      "TCCCC": 130,
-      "TTCTC": 131,
-      "TGGGG": 132,
-      "TAAAA": 133,
-      "ACCCC": 134,
-      "ACCTC": 135,
-      "AGAAG": 136,
-      "TTTTTTTT": 137,
-      "AGGGC": 138,
-      "AGATG": 139,
-      "ACATT": 140,
-      "GTG": 141,
-      "GGCC": 142,
-      "ATAAAA": 143,
-      "AAGCC": 144,
-      "AGGAG": 145,
-      "ATGGC": 146,
-      "TTTAC": 147,
-      "TTTGG": 148,
-      "ATTAC": 149,
-      "ATTGC": 150,
-      "TCAA": 151,
-      "ACTGC": 152,
-      "AAGGC": 153,
-      "TATTG": 154,
-      "AGAAC": 155,
-      "TTGGC": 156,
-      "TTGCC": 157,
-      "AAATC": 158,
-      "TGGAG": 159,
-      "ATATC": 160,
-      "ATGGG": 161,
-      "ATCCC": 162,
-      "AATTC": 163,
-      "ATAAC": 164,
-      "AGGGG": 165,
-      "ACTCC": 166,
-      "AAAGC": 167,
-      "TCG": 168,
-      "AGAGC": 169,
-      "TTGGG": 170,
-      "ATTTG": 171,
-      "AAAGG": 172,
-      "ATTTT": 173,
-      "GGGC": 174,
-      "AGAAAA": 175,
-      "ATAAG": 176,
-      "TCTCC": 177,
-      "ACCAC": 178,
-      "TATCC": 179,
-      "AGAGG": 180,
-      "TGAGG": 181,
-      "AGTAA": 182,
-      "TCTTC": 183,
-      "ATCAC": 184,
-      "AGTT": 185,
-      "TGTAG": 186,
-      "ATAGC": 187,
-      "AGCCC": 188,
-      "AGATT": 189,
-      "TCTT": 190,
-      "TGTT": 191,
-      "TATGC": 192,
-      "TGTGG": 193,
-      "GGGG": 194,
-      "TGTGC": 195,
-      "TGAAG": 196,
-      "TGCCC": 197,
-      "AGACC": 198,
-      "AAGGG": 199,
-      "TCATT": 200,
-      "AAACC": 201,
-      "AGTTC": 202,
-      "TCTGC": 203,
-      "AATAG": 204,
-      "ACTTC": 205,
-      "TTTATT": 206,
-      "ACAGC": 207,
-      "AATAC": 208,
-      "AATGC": 209,
-      "ACATG": 210,
-      "TCAGG": 211,
-      "TGATT": 212,
-      "AATGG": 213,
-      "TGTTC": 214,
-      "TGAGC": 215,
-      "TGATG": 216,
-      "TCAGC": 217,
-      "TCCCAGC": 218,
-      "AGATC": 219,
-      "AGTGG": 220,
-      "TCTTG": 221,
-      "TATGG": 222,
-      "ATACC": 223,
-      "TTAAAA": 224,
-      "TTTTCC": 225,
-      "TACCC": 226,
-      "AACCC": 227,
-      "TTAAC": 228,
-      "AATCC": 229,
-      "TGAAC": 230,
-      "TGTTG": 231,
-      "TAGCC": 232,
-      "TTATG": 233,
-      "ATAGG": 234,
-      "TTAAG": 235,
-      "AATTG": 236,
-      "TTTAT": 237,
-      "AGTGC": 238,
-      "TGTCC": 239,
-      "TAGGC": 240,
-      "TCTAA": 241,
-      "TCATC": 242,
-      "AATTTT": 243,
-      "TCTTTT": 244,
-      "TTATC": 245,
-      "TCAAG": 246,
-      "TCACC": 247,
-      "ACTAA": 248,
-      "AGTAG": 249,
-      "ACTAC": 250,
-      "AGTGGC": 251,
-      "CCCC": 252,
-      "AGAAGC": 253,
-      "ATTTTC": 254,
-      "ATTGG": 255,
-      "ACAAC": 256,
-      "TCATG": 257,
-      "AGTTG": 258,
-      "TCAGCC": 259,
-      "AAATAA": 260,
-      "ACATC": 261,
-      "AGTCC": 262,
-      "TGAGGC": 263,
-      "TCAAC": 264,
-      "ACAGG": 265,
-      "ATTTAA": 266,
-      "TTAGC": 267,
-      "TGACC": 268,
-      "TCTGG": 269,
-      "ACACC": 270,
-      "ATATAA": 271,
-      "ACAAG": 272,
-      "TGTTTT": 273,
-      "TGAAAA": 274,
-      "AATAT": 275,
-      "AAAGAA": 276,
-      "ACTTG": 277,
-      "TGTAC": 278,
-      "TTGGCC": 279,
-      "ACAAAA": 280,
-      "TAAGG": 281,
-      "TGATC": 282,
-      "TAGGG": 283,
-      "TAAGC": 284,
-      "AATATT": 285,
-      "AAACAC": 286,
-      "TTTGTG": 287,
-      "TTACC": 288,
-      "ATTTTG": 289,
-      "TTAGG": 290,
-      "TCTAC": 291,
-      "TTCG": 292,
-      "TGTATT": 293,
-      "TAACC": 294,
-      "TAATTTT": 295,
-      "ACTGG": 296,
-      "AGTAC": 297,
-      "ATTATT": 298,
-      "AGCG": 299,
-      "TCTAG": 300,
-      "AGAAGG": 301,
-      "AGTTTT": 302,
-      "ATATTC": 303,
-      "ACCATG": 304,
-      "ACGG": 305,
-      "GCCC": 306,
-      "AAAACC": 307,
-      "TAATAA": 308,
-      "TCCTG": 309,
-      "ACACACAC": 310,
-      "AAAAGC": 311,
-      "AGAGAA": 312,
-      "TTCAC": 313,
-      "AAAAGG": 314,
-      "TCAGAA": 315,
-      "AGGAAG": 316,
-      "TGTGTGTG": 317,
-      "AACG": 318,
-      "TCACTGC": 319,
-      "ACTAG": 320,
-      "TGTCTC": 321,
-      "TGTAT": 322,
-      "ATTTCC": 323,
-      "ACGC": 324,
-      "TGGGATTAC": 325,
-      "TGCG": 326,
-      "TTCCCC": 327,
-      "AGGTC": 328,
-      "AGGCTGG": 329,
-      "ATCG": 330,
-      "TTCAAG": 331,
-      "ACTTTT": 332,
-      "TCTGCC": 333,
-      "AAATTC": 334,
-      "AGTTTC": 335,
-      "AGGAGG": 336,
-      "ATATAC": 337,
-      "AAAAATT": 338,
-      "TCTTTC": 339,
-      "ATAGAA": 340,
-      "TCCG": 341,
-      "AAAGTGC": 342,
-      "AGCAGC": 343,
-      "ATTTTTT": 344,
-      "TCGC": 345,
-      "TTTGCC": 346,
-      "AAGAC": 347,
-      "TCCTGCC": 348,
-      "AATTTC": 349,
-      "ACCG": 350,
-      "AGCAG": 351,
-      "AAAATAA": 352,
-      "TGGGGC": 353,
-      "AGCCCC": 354,
-      "TTGCCC": 355,
-      "TGAGAC": 356,
-      "TTTTGC": 357,
-      "TATATT": 358,
-      "TGTAATCCCAGC": 359,
-      "TGTGGC": 360,
-      "ATATTG": 361,
-      "AAATAC": 362,
-      "AGGAGAA": 363,
-      "AAATGC": 364,
-      "ATACAC": 365,
-      "TTTCCC": 366,
-      "AACAC": 367,
-      "AGGGGC": 368,
-      "TTCTTC": 369,
-      "TTTATG": 370,
-      "ACTTTGGG": 371,
-      "TCCTC": 372,
-      "TGGGCC": 373,
-      "AAGAAG": 374,
-      "TGAGAA": 375,
-      "ACAGAA": 376,
-      "TTTTGG": 377,
-      "TAAATG": 378,
-      "AGGGCC": 379,
-      "TAAAAC": 380,
-      "AAGTGG": 381,
-      "AAATGG": 382,
-      "TGTTTC": 383,
-      "GAG": 384,
-      "TGGGGG": 385,
-      "AGCAC": 386,
-      "AGCTC": 387,
-      "TGTGCC": 388,
-      "TTCTCC": 389,
-      "TATTCC": 390,
-      "ATTTGC": 391,
-      "AGATGG": 392,
-      "TGATCC": 393,
-      "GTGG": 394,
-      "AAAGAC": 395,
-      "AATGAA": 396,
-      "AACTC": 397,
-      "AGTCTC": 398,
-      "TTTGGC": 399,
-      "AGGTGG": 400,
-      "TACTC": 401,
-      "TTTAAG": 402,
-      "AGGCTGAGGC": 403,
-      "TGGAGTGC": 404,
-      "TATAC": 405,
-      "TTTGGG": 406,
-      "ATTTAC": 407,
-      "TAAAAG": 408,
-      "TGCTGC": 409,
-      "AGATAA": 410,
-      "TTATAA": 411,
-      "TTTATC": 412,
-      "TCCTCC": 413,
-      "TATATG": 414,
-      "AGGAC": 415,
-      "AACAAC": 416,
-      "TCAAAA": 417,
-      "AGTGCC": 418,
-      "ATATGG": 419,
-      "TTATTC": 420,
-      "ATTCCC": 421,
-      "TAAAC": 422,
-      "AAATTG": 423,
-      "TGATTC": 424,
-      "ATATGC": 425,
-      "ATATCC": 426,
-      "AGAGGC": 427,
-      "AACTCC": 428,
-      "TGCTC": 429,
-      "AAGTC": 430,
-      "TGCAC": 431,
-      "AAAGAG": 432,
-      "ATATATAT": 433,
-      "TGAAAC": 434,
-      "AGTATT": 435,
-      "AAGAAAA": 436,
-      "ATCTTC": 437,
-      "ACTCCAGCC": 438,
-      "AATTAA": 439,
-      "ATCACC": 440,
-      "AAATCC": 441,
-      "AGACAC": 442,
-      "ATGATG": 443,
-      "GCG": 444,
-      "AAAGGC": 445,
-      "AATATG": 446,
-      "AAAGTG": 447,
-      "AAGGCC": 448,
-      "ATGTC": 449,
-      "ATTTATT": 450,
-      "ATCTCC": 451,
-      "AGTAT": 452,
-      "AGGAGC": 453,
-      "AAAGGG": 454,
-      "AGAGGG": 455,
-      "ATGAC": 456,
-      "AATATC": 457,
-      "TTCTGC": 458,
-      "TTGAAC": 459,
-      "ACCTCC": 460,
-      "AATCTC": 461,
-      "TACG": 462,
-      "AAAGCC": 463,
-      "AGATTC": 464,
-      "ATGGCC": 465,
-      "TGGAAG": 466,
-      "TAAATT": 467,
-      "TTTAAC": 468,
-      "TTGCAGTG": 469,
-      "TTGGGG": 470,
-      "AATTCC": 471,
-      "ATTGCC": 472,
-      "TTCTG": 473,
-      "TTGTTG": 474,
-      "ATGTG": 475,
-      "TCCCAAAGTGC": 476,
-      "ATAGAG": 477,
-      "TGAAGC": 478,
-      "TCTTCC": 479,
-      "TTAAAC": 480,
-      "AATTTG": 481,
-      "AGGCCC": 482,
-      "AATGGC": 483,
-      "AAATATT": 484,
-      "ATTTAG": 485,
-      "TTTTTAA": 486,
-      "TTAGCC": 487,
-      "TCCAC": 488,
-      "ATGAAG": 489,
-      "ATGTAA": 490,
-      "TTAGAA": 491,
-      "AGGAAC": 492,
-      "AGCTGC": 493,
-      "TGCCCC": 494,
-      "TCACCC": 495,
-      "TGGGATTACAGGC": 496,
-      "AAGAAC": 497,
-      "TTGGGC": 498,
-      "TAAAAATAC": 499,
-      "TTTAGTAG": 500,
-      "AATAAC": 501,
-      "ATCCCC": 502,
-      "AGCTCC": 503,
-      "AGGTGC": 504,
-      "TGAAGG": 505,
-      "AAAAAC": 506,
-      "TCTCCC": 507,
-      "AGGCTGGAGTGC": 508,
-      "AGCAAG": 509,
-      "TCATTC": 510,
-      "TCGG": 511
+      "GCC": 58,
+      "GGC": 59,
+      "AUGC": 60,
+      "ACAC": 61,
+      "UUUC": 62,
+      "UAU": 63,
+      "UGAC": 64,
+      "AAAC": 65,
+      "UUGG": 66,
+      "UGUC": 67,
+      "GGG": 68,
+      "UUGC": 69,
+      "UGAG": 70,
+      "AUAA": 71,
+      "UAUU": 72,
+      "UCAC": 73,
+      "AACC": 74,
+      "AAAG": 75,
+      "UGUU": 76,
+      "UAUG": 77,
+      "ACG": 78,
+      "UAAG": 79,
+      "UACC": 80,
+      "ACAG": 81,
+      "UAAC": 82,
+      "AGUC": 83,
+      "ACUC": 84,
+      "AGGCC": 85,
+      "UAGC": 86,
+      "UAUC": 87,
+      "AUAC": 88,
+      "AAUU": 89,
+      "AGUU": 90,
+      "UGAAG": 91,
+      "AAUC": 92,
+      "UGGCC": 93,
+      "AGAAG": 94,
+      "AGUG": 95,
+      "UGGGC": 96,
+      "UAGG": 97,
+      "ACUU": 98,
+      "UCUU": 99,
+      "GGCC": 100,
+      "UCUG": 101,
+      "UCG": 102,
+      "AUUG": 103,
+      "UCCCC": 104,
+      "ACAA": 105,
+      "ACUG": 106,
+      "AGGGC": 107,
+      "ACCCC": 108,
+      "AUGGC": 109,
+      "UCAG": 110,
+      "AAGCC": 111,
+      "AUUCC": 112,
+      "UUUG": 113,
+      "AAAU": 114,
+      "GGGC": 115,
+      "AUGCC": 116,
+      "AAUG": 117,
+      "UGGGG": 118,
+      "AUUUU": 119,
+      "AGCCC": 120,
+      "AAUAA": 121,
+      "AAAAC": 122,
+      "AGAGG": 123,
+      "AGAGC": 124,
+      "AAGGC": 125,
+      "AGAAC": 126,
+      "AAAAG": 127,
+      "AGAUG": 128,
+      "AGGGG": 129,
+      "UCUCC": 130,
+      "UGAGG": 131,
+      "AUAU": 132,
+      "GGGG": 133,
+      "AGCG": 134,
+      "UGCCC": 135,
+      "UCUGC": 136,
+      "ACUGC": 137,
+      "AAAUG": 138,
+      "UUGCC": 139,
+      "UUGGC": 140,
+      "UUUUC": 141,
+      "AUUUC": 142,
+      "UUCCC": 143,
+      "ACAGC": 144,
+      "UUUCC": 145,
+      "AAAGG": 146,
+      "AUCUC": 147,
+      "AUCCC": 148,
+      "UUGGG": 149,
+      "AAAGC": 150,
+      "ACUCC": 151,
+      "ACCUC": 152,
+      "UGUGG": 153,
+      "ACCG": 154,
+      "UGUAA": 155,
+      "UGUGC": 156,
+      "UGAGC": 157,
+      "GCG": 158,
+      "AGUGC": 159,
+      "UUCUC": 160,
+      "AUGGG": 161,
+      "AGACC": 162,
+      "UGUCC": 163,
+      "UAGAA": 164,
+      "ACGC": 165,
+      "AAGGG": 166,
+      "AUUGC": 167,
+      "AACCC": 168,
+      "UGAAC": 169,
+      "ACAGG": 170,
+      "UGAUG": 171,
+      "AAAUC": 172,
+      "ACUUC": 173,
+      "AAACC": 174,
+      "UCUUC": 175,
+      "ACGG": 176,
+      "UGCG": 177,
+      "UGACC": 178,
+      "AGUUC": 179,
+      "AGUGG": 180,
+      "AGAU": 181,
+      "UUUUG": 182,
+      "UUUAA": 183,
+      "UCCG": 184,
+      "UCAGC": 185,
+      "AGAAAA": 186,
+      "AAAUU": 187,
+      "AGAUC": 188,
+      "UCAGG": 189,
+      "UAUUC": 190,
+      "ACACC": 191,
+      "ACAUC": 192,
+      "UGUUC": 193,
+      "AACG": 194,
+      "UUUGC": 195,
+      "UCACC": 196,
+      "AUAUU": 197,
+      "ACUGG": 198,
+      "AAUUC": 199,
+      "AGUCC": 200,
+      "UAGCC": 201,
+      "AGAAGG": 202,
+      "UCUGG": 203,
+      "UUUGG": 204,
+      "UUAC": 205,
+      "UGAUC": 206,
+      "AAUGC": 207,
+      "AAUGG": 208,
+      "AUAUG": 209,
+      "AGUAA": 210,
+      "UGUUG": 211,
+      "UCGC": 212,
+      "UAUGG": 213,
+      "AAUCC": 214,
+      "AAGAAG": 215,
+      "GCCC": 216,
+      "UGAU": 217,
+      "AGCCCC": 218,
+      "UCAUC": 219,
+      "UAUCC": 220,
+      "ACAUG": 221,
+      "AGUUG": 222,
+      "AGAUU": 223,
+      "UAAGC": 224,
+      "UACCC": 225,
+      "UCGG": 226,
+      "ACAAG": 227,
+      "AGGAAG": 228,
+      "AGCAGC": 229,
+      "ACAAC": 230,
+      "UCAAG": 231,
+      "ACAU": 232,
+      "AGGAGG": 233,
+      "UGAUU": 234,
+      "UAUGC": 235,
+      "AAAAAAAA": 236,
+      "ACAUU": 237,
+      "ACUUG": 238,
+      "CCCC": 239,
+      "UCUUG": 240,
+      "UUAA": 241,
+      "AUUGG": 242,
+      "UACG": 243,
+      "AUCG": 244,
+      "UAGGC": 245,
+      "UAGGG": 246,
+      "AGCUC": 247,
+      "AGAGAA": 248,
+      "UCCUC": 249,
+      "UGAGGC": 250,
+      "UGAAAA": 251,
+      "UAAGG": 252,
+      "AAAGAA": 253,
+      "AUAAC": 254,
+      "AUAAG": 255,
+      "AGAAGC": 256,
+      "UUCG": 257,
+      "AAUAC": 258,
+      "AGCUGC": 259,
+      "CCG": 260,
+      "UUAUU": 261,
+      "AUAUC": 262,
+      "UCAGCC": 263,
+      "UGUAC": 264,
+      "AAUUG": 265,
+      "UUUAC": 266,
+      "AUAAAA": 267,
+      "UUCCCC": 268,
+      "ACUAC": 269,
+      "UAACC": 270,
+      "CCCG": 271,
+      "GCGG": 272,
+      "UCCUCC": 273,
+      "UCAUG": 274,
+      "UCCCAGC": 275,
+      "AGAGGC": 276,
+      "UGUAG": 277,
+      "UGGGCC": 278,
+      "AUACC": 279,
+      "AGAGAC": 280,
+      "UGCUC": 281,
+      "UUCUU": 282,
+      "ACUAA": 283,
+      "AGUAC": 284,
+      "AGAGGG": 285,
+      "UGGGGC": 286,
+      "UGCUGC": 287,
+      "AGAGCC": 288,
+      "UGGAAG": 289,
+      "UCAAC": 290,
+      "UGAAGG": 291,
+      "UGCCCC": 292,
+      "UGAGCC": 293,
+      "AUGAAG": 294,
+      "UUAAG": 295,
+      "AGGCUGG": 296,
+      "AUAGC": 297,
+      "AGGAGC": 298,
+      "AGAACC": 299,
+      "UUGGCC": 300,
+      "AGUGGC": 301,
+      "GCGC": 302,
+      "AAAAGG": 303,
+      "AUUUUC": 304,
+      "UUAAC": 305,
+      "GGCG": 306,
+      "UCAA": 307,
+      "UAAAA": 308,
+      "AGGAA": 309,
+      "AGGAC": 310,
+      "AGAUGG": 311,
+      "AGGGCC": 312,
+      "UUAUG": 313,
+      "AAGAA": 314,
+      "GCCCC": 315,
+      "UCUAC": 316,
+      "AGGCG": 317,
+      "AGCUCC": 318,
+      "AGGGGC": 319,
+      "UUCUCC": 320,
+      "UGUCUC": 321,
+      "UGGGGG": 322,
+      "UGAGAC": 323,
+      "ACCUCC": 324,
+      "UCAUU": 325,
+      "AAAACC": 326,
+      "UGGAGG": 327,
+      "UGAAGC": 328,
+      "AGUAG": 329,
+      "ACCAC": 330,
+      "UUAUC": 331,
+      "UGGAA": 332,
+      "ACCAUG": 333,
+      "UUUUCC": 334,
+      "UGGAAC": 335,
+      "UGGAGC": 336,
+      "AGGAAC": 337,
+      "AGCCG": 338,
+      "UGCAGC": 339,
+      "UCUGCC": 340,
+      "UUUAG": 341,
+      "UUUAU": 342,
+      "GCCG": 343,
+      "AUUUCC": 344,
+      "ACCUGC": 345,
+      "AACUCC": 346,
+      "UGUUUU": 347,
+      "AUUAC": 348,
+      "UGAGAA": 349,
+      "UCCCG": 350,
+      "AGGCCC": 351,
+      "AAGGCC": 352,
+      "UCUAA": 353,
+      "UUACC": 354,
+      "AUGGCC": 355,
+      "AAAUAA": 356,
+      "AUAG": 357,
+      "UUUCUC": 358,
+      "UUCUUC": 359,
+      "UGGAC": 360,
+      "UGAUCC": 361,
+      "AUCUCC": 362,
+      "AAGAC": 363,
+      "UCCUGC": 364,
+      "AUCACC": 365,
+      "UGUGGC": 366,
+      "UGCCG": 367,
+      "UGGCCC": 368,
+      "AGAUGC": 369,
+      "AGCUUC": 370,
+      "AGCAC": 371,
+      "AUUUUG": 372,
+      "AAGAGG": 373,
+      "AAGAUG": 374,
+      "AAGAAC": 375,
+      "UUUCCC": 376,
+      "UUUUUUUU": 377,
+      "UCCUGCC": 378,
+      "AUAGG": 379,
+      "UGUUCC": 380,
+      "UGCGG": 381,
+      "UUAAAA": 382,
+      "AAGCG": 383,
+      "UGGCG": 384,
+      "ACAGCC": 385,
+      "AACUC": 386,
+      "UAAUAA": 387,
+      "AAAGCC": 388,
+      "ACCCCC": 389,
+      "AGACCC": 390,
+      "AUCUUC": 391,
+      "AGACG": 392,
+      "UGUUUC": 393,
+      "UUGCCC": 394,
+      "UA": 395,
+      "AGCUGG": 396,
+      "AGGAUG": 397,
+      "UGCAC": 398,
+      "UGCUUC": 399,
+      "AUCCCC": 400,
+      "AUUUAA": 401,
+      "AUCAC": 402,
+      "UGUGGG": 403,
+      "UGAGGG": 404,
+      "UGCUCC": 405,
+      "AGGUC": 406,
+      "AGUCUC": 407,
+      "AAAAGC": 408,
+      "ACCACC": 409,
+      "AACAC": 410,
+      "AGCAAG": 411,
+      "UGGAUG": 412,
+      "AGCGC": 413,
+      "AAUAG": 414,
+      "UGCUU": 415,
+      "UGAACC": 416,
+      "UGUGCC": 417,
+      "UGAUGG": 418,
+      "UGGUGG": 419,
+      "AUGAC": 420,
+      "UUUAUU": 421,
+      "UGCUGGG": 422,
+      "AAUAU": 423,
+      "AAAAUAA": 424,
+      "GGGGC": 425,
+      "UGAUUC": 426,
+      "AGUUCC": 427,
+      "AAAGAC": 428,
+      "UGUAUU": 429,
+      "AAAGGC": 430,
+      "AGUGCC": 431,
+      "AGUUUC": 432,
+      "ACAGAA": 433,
+      "ACCAGC": 434,
+      "UGACCC": 435,
+      "UCUUCC": 436,
+      "AGUGAC": 437,
+      "AGAUUC": 438,
+      "AAGGGC": 439,
+      "AUCAUC": 440,
+      "AUAAAC": 441,
+      "ACACG": 442,
+      "AAAUGC": 443,
+      "ACUUCC": 444,
+      "AAGCCC": 445,
+      "UGUAU": 446,
+      "UUAGG": 447,
+      "AGAUCC": 448,
+      "AGUGAA": 449,
+      "UUAGC": 450,
+      "AACAAC": 451,
+      "AAGUC": 452,
+      "ACCUUG": 453,
+      "ACCGC": 454,
+      "ACCUGG": 455,
+      "AUUCCC": 456,
+      "ACAAAA": 457,
+      "UCACUGC": 458,
+      "AAAUGG": 459,
+      "AAAUCC": 460,
+      "AAUGAA": 461,
+      "ACGCC": 462,
+      "AGGAGAA": 463,
+      "UUCUGC": 464,
+      "AGUGGG": 465,
+      "AAGAGC": 466,
+      "UUAU": 467,
+      "AUCUGC": 468,
+      "AGUGUG": 469,
+      "AUGAUG": 470,
+      "UCCCCC": 471,
+      "UUCAAG": 472,
+      "UCUCCC": 473,
+      "AUCUUG": 474,
+      "UCCAC": 475,
+      "AGCGG": 476,
+      "AGGUGG": 477,
+      "UGCUGG": 478,
+      "UGAUGC": 479,
+      "AAGAAAA": 480,
+      "AGUUUU": 481,
+      "ACCCG": 482,
+      "AGCUU": 483,
+      "AAAUUC": 484,
+      "AAUUUU": 485,
+      "AUCUU": 486,
+      "AUGUC": 487,
+      "ACCUUC": 488,
+      "UCCGG": 489,
+      "AGUGAG": 490,
+      "AAGGGG": 491,
+      "AACCCC": 492,
+      "UGCGC": 493,
+      "AGGGGG": 494,
+      "AAACAC": 495,
+      "AAAGAG": 496,
+      "AUUGUG": 497,
+      "AGCAGG": 498,
+      "UCUGUC": 499,
+      "AACUUC": 500,
+      "AUUUAC": 501,
+      "AAACG": 502,
+      "UCCUGG": 503,
+      "AGUAGC": 504,
+      "AAGUU": 505,
+      "UGAGAG": 506,
+      "UGUCCC": 507,
+      "AAGACC": 508,
+      "UCUAG": 509,
+      "UUCUGG": 510,
+      "ACUGUG": 511
     },
     "merges": [
-      [
-        "T",
-        "T"
-      ],
       [
         "A",
         "A"
       ],
       [
-        "T",
-        "G"
-      ],
-      [
-        "A",
+        "U",
         "G"
       ],
       [
@@ -598,7 +590,15 @@
         "C"
       ],
       [
-        "T",
+        "A",
+        "G"
+      ],
+      [
+        "U",
+        "U"
+      ],
+      [
+        "U",
         "C"
       ],
       [
@@ -610,40 +610,36 @@
         "G"
       ],
       [
-        "A",
-        "TT"
+        "UG",
+        "G"
       ],
       [
         "A",
-        "T"
-      ],
-      [
-        "A",
-        "TG"
-      ],
-      [
-        "G",
-        "C"
-      ],
-      [
-        "T",
-        "AA"
-      ],
-      [
-        "T",
-        "CC"
-      ],
-      [
-        "A",
-        "CC"
+        "U"
       ],
       [
         "AA",
-        "AA"
+        "G"
       ],
       [
         "AG",
         "G"
+      ],
+      [
+        "UG",
+        "C"
+      ],
+      [
+        "A",
+        "CC"
+      ],
+      [
+        "U",
+        "CC"
+      ],
+      [
+        "A",
+        "UU"
       ],
       [
         "AG",
@@ -651,1943 +647,1947 @@
       ],
       [
         "A",
-        "TC"
-      ],
-      [
-        "TT",
-        "C"
-      ],
-      [
-        "AA",
-        "G"
-      ],
-      [
-        "TT",
-        "TT"
-      ],
-      [
-        "TG",
-        "C"
-      ],
-      [
-        "TG",
-        "G"
+        "UG"
       ],
       [
         "AA",
         "C"
       ],
       [
-        "TT",
-        "G"
+        "A",
+        "UC"
       ],
       [
-        "T",
-        "AG"
+        "UU",
+        "C"
       ],
       [
-        "T",
-        "AC"
+        "U",
+        "UG"
       ],
       [
         "CC",
         "C"
       ],
       [
-        "T",
-        "ATT"
-      ],
-      [
-        "TG",
-        "GG"
-      ],
-      [
-        "AG",
+        "U",
         "AA"
       ],
       [
-        "T",
-        "AT"
+        "G",
+        "C"
+      ],
+      [
+        "AA",
+        "AA"
+      ],
+      [
+        "UG",
+        "GG"
+      ],
+      [
+        "U",
+        "AC"
       ],
       [
         "AG",
         "GG"
-      ],
-      [
-        "TT",
-        "TC"
-      ],
-      [
-        "AG",
-        "GC"
-      ],
-      [
-        "TG",
-        "TG"
       ],
       [
         "AG",
         "CC"
       ],
       [
-        "AT",
+        "AG",
         "AA"
       ],
       [
-        "ATT",
+        "UGG",
         "C"
       ],
       [
-        "TT",
-        "GG"
-      ],
-      [
-        "AC",
-        "AC"
+        "AGG",
+        "C"
       ],
       [
         "AA",
         "GG"
       ],
       [
-        "TCC",
-        "C"
-      ],
-      [
-        "TC",
-        "TC"
-      ],
-      [
-        "T",
-        "ATG"
-      ],
-      [
-        "TT",
-        "TG"
-      ],
-      [
-        "TT",
+        "UG",
         "CC"
       ],
       [
-        "AG",
+        "AAG",
+        "C"
+      ],
+      [
+        "UU",
+        "CC"
+      ],
+      [
+        "U",
         "AG"
       ],
       [
-        "ATG",
-        "G"
+        "UCC",
+        "C"
       ],
       [
-        "AA",
-        "AC"
+        "A",
+        "UGG"
+      ],
+      [
+        "UU",
+        "UU"
       ],
       [
         "AG",
-        "TG"
+        "AC"
+      ],
+      [
+        "UG",
+        "UG"
+      ],
+      [
+        "UC",
+        "UC"
       ],
       [
         "ACC",
         "C"
       ],
       [
-        "TG",
+        "AU",
         "CC"
+      ],
+      [
+        "AUU",
+        "C"
+      ],
+      [
+        "UG",
+        "AA"
       ],
       [
         "AG",
-        "AC"
-      ],
-      [
-        "ATT",
-        "G"
-      ],
-      [
-        "AT",
-        "CC"
-      ],
-      [
-        "ATG",
-        "C"
-      ],
-      [
-        "AT",
-        "AC"
-      ],
-      [
-        "TC",
-        "AC"
-      ],
-      [
-        "TG",
-        "AA"
-      ],
-      [
-        "TG",
-        "GC"
-      ],
-      [
-        "TT",
-        "AA"
-      ],
-      [
-        "TT",
-        "GC"
-      ],
-      [
-        "TAA",
-        "G"
-      ],
-      [
-        "T",
-        "ATC"
-      ],
-      [
-        "TC",
-        "TG"
-      ],
-      [
-        "TAA",
-        "C"
-      ],
-      [
-        "AA",
         "AG"
-      ],
-      [
-        "GG",
-        "G"
-      ],
-      [
-        "AA",
-        "GC"
-      ],
-      [
-        "TT",
-        "AC"
-      ],
-      [
-        "GG",
-        "C"
-      ],
-      [
-        "AT",
-        "AT"
-      ],
-      [
-        "T",
-        "AGC"
-      ],
-      [
-        "T",
-        "ACC"
-      ],
-      [
-        "AA",
-        "CC"
-      ],
-      [
-        "AA",
-        "TG"
-      ],
-      [
-        "T",
-        "AGG"
-      ],
-      [
-        "AT",
-        "ATT"
       ],
       [
         "G",
         "CC"
       ],
       [
-        "AG",
-        "TC"
-      ],
-      [
-        "TT",
-        "TTC"
-      ],
-      [
-        "TG",
-        "AC"
-      ],
-      [
-        "AAAA",
+        "GG",
         "C"
       ],
       [
+        "A",
+        "UGC"
+      ],
+      [
+        "AC",
+        "AC"
+      ],
+      [
+        "UU",
+        "UC"
+      ],
+      [
+        "U",
+        "AU"
+      ],
+      [
+        "UG",
+        "AC"
+      ],
+      [
         "AA",
-        "TC"
+        "AC"
       ],
       [
-        "TT",
-        "TAA"
+        "U",
+        "UGG"
       ],
       [
-        "AAAA",
+        "UG",
+        "UC"
+      ],
+      [
+        "GG",
         "G"
       ],
       [
-        "TG",
-        "TC"
+        "U",
+        "UGC"
       ],
       [
-        "AT",
+        "UG",
         "AG"
       ],
       [
-        "TT",
-        "ATT"
+        "AU",
+        "AA"
       ],
       [
-        "TTTT",
+        "U",
+        "AUU"
+      ],
+      [
+        "UC",
+        "AC"
+      ],
+      [
+        "AA",
+        "CC"
+      ],
+      [
+        "AA",
+        "AG"
+      ],
+      [
+        "UG",
+        "UU"
+      ],
+      [
+        "U",
+        "AUG"
+      ],
+      [
+        "AC",
         "G"
       ],
       [
-        "TG",
-        "AG"
+        "U",
+        "AAG"
       ],
       [
-        "AA",
-        "TT"
-      ],
-      [
-        "AA",
-        "ATT"
+        "U",
+        "ACC"
       ],
       [
         "AC",
         "AG"
       ],
       [
-        "TT",
-        "TCC"
+        "U",
+        "AAC"
       ],
       [
-        "AA",
-        "TAA"
+        "AG",
+        "UC"
       ],
       [
         "AC",
-        "TC"
+        "UC"
       ],
       [
         "AGG",
         "CC"
       ],
       [
-        "ATT",
-        "TC"
+        "U",
+        "AGC"
+      ],
+      [
+        "U",
+        "AUC"
+      ],
+      [
+        "AU",
+        "AC"
       ],
       [
         "AA",
-        "ATG"
+        "UU"
       ],
       [
-        "TGGG",
-        "C"
+        "AG",
+        "UU"
       ],
       [
-        "AC",
-        "G"
-      ],
-      [
-        "TC",
-        "AG"
-      ],
-      [
-        "AC",
-        "TG"
-      ],
-      [
-        "TT",
-        "AG"
-      ],
-      [
-        "AT",
-        "ATG"
-      ],
-      [
-        "TGG",
-        "CC"
-      ],
-      [
-        "AC",
-        "AA"
-      ],
-      [
-        "ATC",
-        "TC"
-      ],
-      [
-        "TATT",
-        "C"
-      ],
-      [
-        "TG",
-        "TAA"
-      ],
-      [
-        "ATT",
-        "CC"
-      ],
-      [
-        "AC",
-        "TT"
+        "UG",
+        "AAG"
       ],
       [
         "AA",
-        "AT"
+        "UC"
       ],
       [
-        "ATG",
+        "UGG",
         "CC"
-      ],
-      [
-        "AAAA",
-        "AAAA"
-      ],
-      [
-        "TT",
-        "TGC"
-      ],
-      [
-        "TT",
-        "TAG"
-      ],
-      [
-        "TT",
-        "CCC"
-      ],
-      [
-        "TCC",
-        "CC"
-      ],
-      [
-        "TTC",
-        "TC"
-      ],
-      [
-        "TGGG",
-        "G"
-      ],
-      [
-        "TAA",
-        "AA"
-      ],
-      [
-        "ACC",
-        "CC"
-      ],
-      [
-        "ACC",
-        "TC"
       ],
       [
         "AG",
         "AAG"
       ],
       [
-        "TTTT",
-        "TTTT"
+        "AG",
+        "UG"
       ],
       [
-        "AGGG",
+        "UGGG",
         "C"
       ],
       [
-        "AG",
-        "ATG"
+        "U",
+        "AGG"
       ],
       [
         "AC",
-        "ATT"
+        "UU"
       ],
       [
-        "G",
-        "TG"
+        "UC",
+        "UU"
       ],
       [
         "GG",
         "CC"
       ],
       [
-        "AT",
-        "AAAA"
+        "UC",
+        "UG"
+      ],
+      [
+        "UC",
+        "G"
+      ],
+      [
+        "AU",
+        "UG"
+      ],
+      [
+        "UCC",
+        "CC"
+      ],
+      [
+        "AC",
+        "AA"
+      ],
+      [
+        "AC",
+        "UG"
+      ],
+      [
+        "AGGG",
+        "C"
+      ],
+      [
+        "ACC",
+        "CC"
+      ],
+      [
+        "A",
+        "UGGC"
+      ],
+      [
+        "UC",
+        "AG"
       ],
       [
         "AAG",
         "CC"
       ],
       [
-        "AGG",
-        "AG"
+        "AUU",
+        "CC"
       ],
       [
-        "ATG",
+        "UU",
+        "UG"
+      ],
+      [
+        "AA",
+        "AU"
+      ],
+      [
+        "GG",
         "GC"
       ],
       [
-        "TT",
-        "TAC"
+        "AUG",
+        "CC"
       ],
       [
-        "TT",
-        "TGG"
+        "AA",
+        "UG"
       ],
       [
-        "ATT",
-        "AC"
+        "UGGG",
+        "G"
       ],
       [
-        "ATT",
-        "GC"
+        "AUU",
+        "UU"
       ],
       [
-        "TC",
-        "AA"
+        "AG",
+        "CCC"
       ],
       [
-        "AC",
-        "TGC"
+        "AA",
+        "UAA"
+      ],
+      [
+        "AA",
+        "AAC"
+      ],
+      [
+        "AG",
+        "AGG"
+      ],
+      [
+        "AG",
+        "AGC"
       ],
       [
         "AAGG",
         "C"
       ],
       [
-        "TATT",
-        "G"
-      ],
-      [
         "AG",
         "AAC"
       ],
       [
-        "TTGG",
-        "C"
-      ],
-      [
-        "TTG",
-        "CC"
-      ],
-      [
         "AA",
-        "ATC"
+        "AAG"
       ],
       [
-        "TGG",
-        "AG"
-      ],
-      [
-        "AT",
-        "ATC"
-      ],
-      [
-        "ATG",
-        "GG"
-      ],
-      [
-        "AT",
-        "CCC"
-      ],
-      [
-        "AA",
-        "TTC"
-      ],
-      [
-        "AT",
-        "AAC"
+        "AG",
+        "AUG"
       ],
       [
         "AGGG",
         "G"
       ],
       [
-        "AC",
-        "TCC"
+        "UC",
+        "UCC"
       ],
       [
-        "AA",
-        "AGC"
-      ],
-      [
-        "TC",
-        "G"
-      ],
-      [
-        "AG",
-        "AGC"
-      ],
-      [
-        "TTGG",
-        "G"
-      ],
-      [
-        "ATT",
-        "TG"
-      ],
-      [
-        "AA",
+        "UG",
         "AGG"
       ],
       [
-        "ATT",
-        "TT"
-      ],
-      [
-        "GG",
-        "GC"
-      ],
-      [
-        "AG",
-        "AAAA"
-      ],
-      [
-        "AT",
-        "AAG"
-      ],
-      [
-        "TC",
-        "TCC"
-      ],
-      [
-        "ACC",
-        "AC"
-      ],
-      [
-        "TAT",
-        "CC"
-      ],
-      [
-        "AG",
-        "AGG"
-      ],
-      [
-        "TG",
-        "AGG"
-      ],
-      [
-        "AG",
-        "TAA"
-      ],
-      [
-        "TC",
-        "TTC"
-      ],
-      [
-        "ATC",
-        "AC"
-      ],
-      [
-        "AG",
-        "TT"
-      ],
-      [
-        "TG",
-        "TAG"
-      ],
-      [
-        "AT",
-        "AGC"
-      ],
-      [
-        "AG",
-        "CCC"
-      ],
-      [
-        "AG",
-        "ATT"
-      ],
-      [
-        "TC",
-        "TT"
-      ],
-      [
-        "TG",
-        "TT"
-      ],
-      [
-        "TATG",
-        "C"
-      ],
-      [
-        "TG",
-        "TGG"
+        "AU",
+        "AU"
       ],
       [
         "GG",
         "GG"
       ],
       [
-        "TG",
-        "TGC"
-      ],
-      [
-        "TG",
-        "AAG"
-      ],
-      [
-        "TG",
-        "CCC"
-      ],
-      [
-        "AG",
-        "ACC"
-      ],
-      [
-        "AAGG",
-        "G"
-      ],
-      [
-        "TC",
-        "ATT"
-      ],
-      [
-        "AA",
-        "ACC"
-      ],
-      [
-        "AG",
-        "TTC"
-      ],
-      [
-        "TC",
-        "TGC"
-      ],
-      [
-        "AA",
-        "TAG"
-      ],
-      [
-        "AC",
-        "TTC"
-      ],
-      [
-        "TT",
-        "TATT"
-      ],
-      [
-        "AC",
-        "AGC"
-      ],
-      [
-        "AA",
-        "TAC"
-      ],
-      [
-        "AA",
-        "TGC"
-      ],
-      [
-        "AC",
-        "ATG"
-      ],
-      [
-        "TC",
-        "AGG"
-      ],
-      [
-        "TG",
-        "ATT"
-      ],
-      [
-        "AA",
-        "TGG"
-      ],
-      [
-        "TG",
-        "TTC"
-      ],
-      [
-        "TG",
-        "AGC"
-      ],
-      [
-        "TG",
-        "ATG"
-      ],
-      [
-        "TC",
-        "AGC"
-      ],
-      [
-        "TCCC",
-        "AGC"
-      ],
-      [
-        "AG",
-        "ATC"
-      ],
-      [
-        "AG",
-        "TGG"
-      ],
-      [
-        "TC",
-        "TTG"
-      ],
-      [
-        "TATG",
-        "G"
-      ],
-      [
-        "AT",
-        "ACC"
-      ],
-      [
-        "TT",
-        "AAAA"
-      ],
-      [
-        "TTTT",
-        "CC"
-      ],
-      [
-        "T",
-        "ACCC"
-      ],
-      [
-        "AA",
-        "CCC"
-      ],
-      [
-        "TT",
-        "AAC"
-      ],
-      [
-        "AA",
-        "TCC"
-      ],
-      [
-        "TG",
-        "AAC"
-      ],
-      [
-        "TG",
-        "TTG"
-      ],
-      [
-        "TAG",
-        "CC"
-      ],
-      [
-        "TT",
-        "ATG"
-      ],
-      [
-        "AT",
-        "AGG"
-      ],
-      [
-        "TT",
-        "AAG"
-      ],
-      [
-        "AA",
-        "TTG"
-      ],
-      [
-        "TT",
-        "TAT"
-      ],
-      [
-        "AG",
-        "TGC"
-      ],
-      [
-        "TG",
-        "TCC"
-      ],
-      [
-        "TAG",
-        "GC"
-      ],
-      [
-        "TC",
-        "TAA"
-      ],
-      [
-        "TC",
-        "ATC"
-      ],
-      [
-        "AA",
-        "TTTT"
-      ],
-      [
-        "TC",
-        "TTTT"
-      ],
-      [
-        "TT",
-        "ATC"
-      ],
-      [
-        "TC",
-        "AAG"
-      ],
-      [
-        "TC",
-        "ACC"
-      ],
-      [
-        "AC",
-        "TAA"
-      ],
-      [
-        "AG",
-        "TAG"
-      ],
-      [
-        "AC",
-        "TAC"
-      ],
-      [
-        "AGTG",
-        "GC"
-      ],
-      [
-        "CC",
-        "CC"
-      ],
-      [
-        "AGAA",
-        "GC"
-      ],
-      [
-        "ATT",
-        "TTC"
-      ],
-      [
-        "ATT",
-        "GG"
-      ],
-      [
-        "AC",
-        "AAC"
-      ],
-      [
-        "TC",
-        "ATG"
-      ],
-      [
-        "AG",
-        "TTG"
-      ],
-      [
-        "TC",
-        "AGCC"
-      ],
-      [
-        "AA",
-        "ATAA"
-      ],
-      [
-        "AC",
-        "ATC"
-      ],
-      [
-        "AG",
-        "TCC"
-      ],
-      [
-        "TG",
-        "AGGC"
-      ],
-      [
-        "TC",
-        "AAC"
-      ],
-      [
-        "AC",
-        "AGG"
-      ],
-      [
-        "ATT",
-        "TAA"
-      ],
-      [
-        "TT",
-        "AGC"
-      ],
-      [
-        "TG",
-        "ACC"
-      ],
-      [
-        "TC",
-        "TGG"
-      ],
-      [
-        "AC",
-        "ACC"
-      ],
-      [
-        "AT",
-        "ATAA"
-      ],
-      [
-        "AC",
-        "AAG"
-      ],
-      [
-        "TG",
-        "TTTT"
-      ],
-      [
-        "TG",
-        "AAAA"
-      ],
-      [
-        "AA",
-        "TAT"
-      ],
-      [
-        "AA",
-        "AGAA"
-      ],
-      [
-        "AC",
-        "TTG"
-      ],
-      [
-        "TG",
-        "TAC"
-      ],
-      [
-        "TTGG",
-        "CC"
-      ],
-      [
-        "AC",
-        "AAAA"
-      ],
-      [
-        "TAA",
-        "GG"
-      ],
-      [
-        "TG",
-        "ATC"
-      ],
-      [
-        "TAG",
-        "GG"
-      ],
-      [
-        "TAA",
-        "GC"
-      ],
-      [
-        "AA",
-        "TATT"
-      ],
-      [
-        "AA",
-        "ACAC"
-      ],
-      [
-        "TT",
-        "TGTG"
-      ],
-      [
-        "TT",
-        "ACC"
-      ],
-      [
-        "ATT",
-        "TTG"
-      ],
-      [
-        "TT",
-        "AGG"
-      ],
-      [
-        "TC",
-        "TAC"
-      ],
-      [
-        "TTC",
-        "G"
-      ],
-      [
-        "TG",
-        "TATT"
-      ],
-      [
-        "TAA",
-        "CC"
-      ],
-      [
-        "TAA",
-        "TTTT"
-      ],
-      [
-        "AC",
-        "TGG"
-      ],
-      [
-        "AG",
-        "TAC"
-      ],
-      [
-        "ATT",
-        "ATT"
-      ],
-      [
         "AGC",
         "G"
       ],
       [
-        "TC",
-        "TAG"
+        "UG",
+        "CCC"
       ],
       [
-        "AGAA",
+        "UC",
+        "UGC"
+      ],
+      [
+        "AC",
+        "UGC"
+      ],
+      [
+        "AA",
+        "AUG"
+      ],
+      [
+        "UUG",
+        "CC"
+      ],
+      [
+        "U",
+        "UGGC"
+      ],
+      [
+        "UU",
+        "UUC"
+      ],
+      [
+        "AUU",
+        "UC"
+      ],
+      [
+        "UU",
+        "CCC"
+      ],
+      [
+        "AC",
+        "AGC"
+      ],
+      [
+        "UU",
+        "UCC"
+      ],
+      [
+        "AA",
+        "AGG"
+      ],
+      [
+        "AUC",
+        "UC"
+      ],
+      [
+        "AU",
+        "CCC"
+      ],
+      [
+        "UUG",
         "GG"
       ],
       [
-        "AG",
-        "TTTT"
+        "AA",
+        "AGC"
       ],
       [
-        "AT",
-        "ATTC"
+        "AC",
+        "UCC"
       ],
       [
         "ACC",
-        "ATG"
+        "UC"
       ],
       [
-        "AC",
-        "GG"
-      ],
-      [
-        "G",
-        "CCC"
-      ],
-      [
-        "AAAA",
-        "CC"
-      ],
-      [
-        "TAA",
-        "TAA"
-      ],
-      [
-        "TCC",
-        "TG"
-      ],
-      [
-        "ACAC",
-        "ACAC"
-      ],
-      [
-        "AAAA",
-        "GC"
-      ],
-      [
-        "AG",
-        "AGAA"
-      ],
-      [
-        "TTC",
-        "AC"
-      ],
-      [
-        "AAAA",
-        "GG"
-      ],
-      [
-        "TC",
-        "AGAA"
-      ],
-      [
-        "AGG",
-        "AAG"
-      ],
-      [
-        "TGTG",
-        "TGTG"
-      ],
-      [
-        "AAC",
-        "G"
-      ],
-      [
-        "TCAC",
-        "TGC"
-      ],
-      [
-        "AC",
-        "TAG"
-      ],
-      [
-        "TG",
-        "TCTC"
-      ],
-      [
-        "TG",
-        "TAT"
-      ],
-      [
-        "ATT",
-        "TCC"
-      ],
-      [
-        "AC",
-        "GC"
-      ],
-      [
-        "TGGG",
-        "ATTAC"
-      ],
-      [
-        "TGC",
-        "G"
-      ],
-      [
-        "TTCC",
-        "CC"
-      ],
-      [
-        "AGG",
-        "TC"
-      ],
-      [
-        "AGGC",
-        "TGG"
-      ],
-      [
-        "ATC",
-        "G"
-      ],
-      [
-        "TTC",
-        "AAG"
-      ],
-      [
-        "AC",
-        "TTTT"
-      ],
-      [
-        "TC",
-        "TGCC"
-      ],
-      [
-        "AA",
-        "ATTC"
-      ],
-      [
-        "AG",
-        "TTTC"
-      ],
-      [
-        "AGG",
-        "AGG"
-      ],
-      [
-        "AT",
-        "ATAC"
-      ],
-      [
-        "AAAA",
-        "ATT"
-      ],
-      [
-        "TC",
-        "TTTC"
-      ],
-      [
-        "AT",
-        "AGAA"
-      ],
-      [
-        "TCC",
-        "G"
-      ],
-      [
-        "AAAG",
-        "TGC"
-      ],
-      [
-        "AGC",
-        "AGC"
-      ],
-      [
-        "ATT",
-        "TTTT"
-      ],
-      [
-        "TC",
-        "GC"
-      ],
-      [
-        "TTTG",
-        "CC"
-      ],
-      [
-        "AAG",
-        "AC"
-      ],
-      [
-        "TCC",
-        "TGCC"
-      ],
-      [
-        "AA",
-        "TTTC"
+        "UG",
+        "UGG"
       ],
       [
         "ACC",
         "G"
       ],
       [
-        "AGC",
-        "AG"
+        "UG",
+        "UAA"
       ],
       [
-        "AAAA",
-        "TAA"
+        "UG",
+        "UGC"
       ],
       [
-        "TGGG",
-        "GC"
-      ],
-      [
-        "AGCC",
-        "CC"
-      ],
-      [
-        "TTG",
-        "CCC"
-      ],
-      [
-        "TG",
-        "AGAC"
-      ],
-      [
-        "TTTT",
-        "GC"
-      ],
-      [
-        "TAT",
-        "ATT"
-      ],
-      [
-        "TGTAA",
-        "TCCCAGC"
-      ],
-      [
-        "TGTG",
-        "GC"
-      ],
-      [
-        "AT",
-        "ATTG"
-      ],
-      [
-        "AA",
-        "ATAC"
-      ],
-      [
-        "AGG",
-        "AGAA"
-      ],
-      [
-        "AA",
-        "ATGC"
-      ],
-      [
-        "AT",
-        "ACAC"
-      ],
-      [
-        "TT",
-        "TCCC"
-      ],
-      [
-        "AAC",
-        "AC"
-      ],
-      [
-        "AGGG",
-        "GC"
-      ],
-      [
-        "TTC",
-        "TTC"
-      ],
-      [
-        "TT",
-        "TATG"
-      ],
-      [
-        "ACTT",
-        "TGGG"
-      ],
-      [
-        "TCC",
-        "TC"
-      ],
-      [
-        "TGGG",
-        "CC"
-      ],
-      [
-        "AAG",
-        "AAG"
-      ],
-      [
-        "TG",
-        "AGAA"
-      ],
-      [
-        "AC",
-        "AGAA"
-      ],
-      [
-        "TTTT",
-        "GG"
-      ],
-      [
-        "TAA",
-        "ATG"
-      ],
-      [
-        "AGGG",
-        "CC"
-      ],
-      [
-        "TAA",
-        "AAC"
-      ],
-      [
-        "AAG",
-        "TGG"
-      ],
-      [
-        "AA",
-        "ATGG"
-      ],
-      [
-        "TG",
-        "TTTC"
-      ],
-      [
-        "G",
-        "AG"
-      ],
-      [
-        "TGGG",
-        "GG"
-      ],
-      [
-        "AGC",
-        "AC"
-      ],
-      [
-        "AGC",
-        "TC"
-      ],
-      [
-        "TGTG",
-        "CC"
-      ],
-      [
-        "TTC",
-        "TCC"
-      ],
-      [
-        "TATT",
-        "CC"
-      ],
-      [
-        "ATT",
-        "TGC"
-      ],
-      [
-        "AG",
-        "ATGG"
-      ],
-      [
-        "TG",
-        "ATCC"
-      ],
-      [
-        "G",
-        "TGG"
-      ],
-      [
-        "AA",
-        "AGAC"
-      ],
-      [
-        "AA",
-        "TGAA"
-      ],
-      [
-        "AAC",
-        "TC"
-      ],
-      [
-        "AG",
-        "TCTC"
-      ],
-      [
-        "TTTG",
-        "GC"
-      ],
-      [
-        "AGG",
-        "TGG"
-      ],
-      [
-        "TAC",
-        "TC"
-      ],
-      [
-        "TT",
-        "TAAG"
-      ],
-      [
-        "AGGC",
-        "TGAGGC"
-      ],
-      [
-        "TGGAG",
-        "TGC"
-      ],
-      [
-        "TAT",
-        "AC"
-      ],
-      [
-        "TT",
-        "TGGG"
-      ],
-      [
-        "ATT",
-        "TAC"
-      ],
-      [
-        "TAA",
-        "AAG"
-      ],
-      [
-        "TGC",
-        "TGC"
-      ],
-      [
-        "AG",
-        "ATAA"
-      ],
-      [
-        "TT",
-        "ATAA"
-      ],
-      [
-        "TT",
-        "TATC"
-      ],
-      [
-        "TCC",
-        "TCC"
-      ],
-      [
-        "TAT",
-        "ATG"
-      ],
-      [
-        "AGG",
-        "AC"
-      ],
-      [
-        "AAC",
-        "AAC"
-      ],
-      [
-        "TC",
-        "AAAA"
-      ],
-      [
-        "AGTG",
-        "CC"
-      ],
-      [
-        "AT",
-        "ATGG"
-      ],
-      [
-        "TT",
-        "ATTC"
-      ],
-      [
-        "ATT",
-        "CCC"
-      ],
-      [
-        "TAA",
-        "AC"
-      ],
-      [
-        "AA",
-        "ATTG"
-      ],
-      [
-        "TG",
-        "ATTC"
-      ],
-      [
-        "AT",
-        "ATGC"
-      ],
-      [
-        "AT",
-        "ATCC"
-      ],
-      [
-        "AG",
-        "AGGC"
-      ],
-      [
-        "AAC",
-        "TCC"
-      ],
-      [
-        "TGC",
-        "TC"
-      ],
-      [
-        "AAG",
-        "TC"
-      ],
-      [
-        "TGC",
-        "AC"
-      ],
-      [
-        "AA",
-        "AGAG"
-      ],
-      [
-        "ATAT",
-        "ATAT"
-      ],
-      [
-        "TG",
-        "AAAC"
-      ],
-      [
-        "AG",
-        "TATT"
-      ],
-      [
-        "AAG",
-        "AAAA"
-      ],
-      [
-        "ATC",
-        "TTC"
-      ],
-      [
-        "ACTCC",
-        "AGCC"
-      ],
-      [
-        "AA",
-        "TTAA"
-      ],
-      [
-        "ATC",
-        "ACC"
-      ],
-      [
-        "AA",
-        "ATCC"
-      ],
-      [
-        "AG",
-        "ACAC"
-      ],
-      [
-        "ATG",
-        "ATG"
+        "UG",
+        "AGC"
       ],
       [
         "GC",
         "G"
       ],
       [
-        "AA",
-        "AGGC"
+        "AG",
+        "UGC"
       ],
       [
-        "AA",
-        "TATG"
+        "UUC",
+        "UC"
       ],
       [
-        "AA",
-        "AGTG"
-      ],
-      [
-        "AAGG",
-        "CC"
-      ],
-      [
-        "ATG",
-        "TC"
-      ],
-      [
-        "ATT",
-        "TATT"
-      ],
-      [
-        "ATC",
-        "TCC"
+        "AUG",
+        "GG"
       ],
       [
         "AG",
-        "TAT"
+        "ACC"
+      ],
+      [
+        "UG",
+        "UCC"
+      ],
+      [
+        "U",
+        "AGAA"
+      ],
+      [
+        "AC",
+        "GC"
+      ],
+      [
+        "AAGG",
+        "G"
+      ],
+      [
+        "AU",
+        "UGC"
+      ],
+      [
+        "AA",
+        "CCC"
+      ],
+      [
+        "UG",
+        "AAC"
+      ],
+      [
+        "AC",
+        "AGG"
+      ],
+      [
+        "UG",
+        "AUG"
+      ],
+      [
+        "AA",
+        "AUC"
+      ],
+      [
+        "AC",
+        "UUC"
+      ],
+      [
+        "AA",
+        "ACC"
+      ],
+      [
+        "UC",
+        "UUC"
+      ],
+      [
+        "AC",
+        "GG"
+      ],
+      [
+        "UGC",
+        "G"
+      ],
+      [
+        "UG",
+        "ACC"
+      ],
+      [
+        "AG",
+        "UUC"
+      ],
+      [
+        "AG",
+        "UGG"
+      ],
+      [
+        "AG",
+        "AU"
+      ],
+      [
+        "UU",
+        "UUG"
+      ],
+      [
+        "UU",
+        "UAA"
+      ],
+      [
+        "UCC",
+        "G"
+      ],
+      [
+        "UC",
+        "AGC"
+      ],
+      [
+        "AG",
+        "AAAA"
+      ],
+      [
+        "AA",
+        "AUU"
+      ],
+      [
+        "AG",
+        "AUC"
+      ],
+      [
+        "UC",
+        "AGG"
+      ],
+      [
+        "U",
+        "AUUC"
+      ],
+      [
+        "AC",
+        "ACC"
+      ],
+      [
+        "AC",
+        "AUC"
+      ],
+      [
+        "UG",
+        "UUC"
+      ],
+      [
+        "AAC",
+        "G"
+      ],
+      [
+        "UU",
+        "UGC"
+      ],
+      [
+        "UC",
+        "ACC"
+      ],
+      [
+        "AU",
+        "AUU"
+      ],
+      [
+        "AC",
+        "UGG"
+      ],
+      [
+        "AA",
+        "UUC"
+      ],
+      [
+        "AG",
+        "UCC"
+      ],
+      [
+        "U",
+        "AGCC"
+      ],
+      [
+        "AGAA",
+        "GG"
+      ],
+      [
+        "UC",
+        "UGG"
+      ],
+      [
+        "UU",
+        "UGG"
+      ],
+      [
+        "UU",
+        "AC"
+      ],
+      [
+        "UG",
+        "AUC"
+      ],
+      [
+        "AA",
+        "UGC"
+      ],
+      [
+        "AA",
+        "UGG"
+      ],
+      [
+        "AU",
+        "AUG"
+      ],
+      [
+        "AG",
+        "UAA"
+      ],
+      [
+        "UG",
+        "UUG"
+      ],
+      [
+        "UC",
+        "GC"
+      ],
+      [
+        "U",
+        "AUGG"
+      ],
+      [
+        "AA",
+        "UCC"
+      ],
+      [
+        "AAG",
+        "AAG"
+      ],
+      [
+        "G",
+        "CCC"
+      ],
+      [
+        "UG",
+        "AU"
+      ],
+      [
+        "AGCC",
+        "CC"
+      ],
+      [
+        "UC",
+        "AUC"
+      ],
+      [
+        "U",
+        "AUCC"
+      ],
+      [
+        "AC",
+        "AUG"
+      ],
+      [
+        "AG",
+        "UUG"
+      ],
+      [
+        "AG",
+        "AUU"
+      ],
+      [
+        "U",
+        "AAGC"
+      ],
+      [
+        "U",
+        "ACCC"
+      ],
+      [
+        "UC",
+        "GG"
+      ],
+      [
+        "AC",
+        "AAG"
+      ],
+      [
+        "AGG",
+        "AAG"
+      ],
+      [
+        "AGC",
+        "AGC"
+      ],
+      [
+        "AC",
+        "AAC"
+      ],
+      [
+        "UC",
+        "AAG"
+      ],
+      [
+        "AC",
+        "AU"
+      ],
+      [
+        "AGG",
+        "AGG"
+      ],
+      [
+        "UG",
+        "AUU"
+      ],
+      [
+        "U",
+        "AUGC"
+      ],
+      [
+        "AAAA",
+        "AAAA"
+      ],
+      [
+        "AC",
+        "AUU"
+      ],
+      [
+        "AC",
+        "UUG"
+      ],
+      [
+        "CC",
+        "CC"
+      ],
+      [
+        "UC",
+        "UUG"
+      ],
+      [
+        "UU",
+        "AA"
+      ],
+      [
+        "AU",
+        "UGG"
+      ],
+      [
+        "UAC",
+        "G"
+      ],
+      [
+        "AUC",
+        "G"
+      ],
+      [
+        "U",
+        "AGGC"
+      ],
+      [
+        "U",
+        "AGGG"
+      ],
+      [
+        "AGC",
+        "UC"
+      ],
+      [
+        "AG",
+        "AGAA"
+      ],
+      [
+        "UCC",
+        "UC"
+      ],
+      [
+        "UG",
+        "AGGC"
+      ],
+      [
+        "UG",
+        "AAAA"
+      ],
+      [
+        "UAA",
+        "GG"
+      ],
+      [
+        "AA",
+        "AGAA"
+      ],
+      [
+        "AU",
+        "AAC"
+      ],
+      [
+        "AU",
+        "AAG"
+      ],
+      [
+        "AG",
+        "AAGC"
+      ],
+      [
+        "UUC",
+        "G"
+      ],
+      [
+        "AA",
+        "UAC"
+      ],
+      [
+        "AGC",
+        "UGC"
+      ],
+      [
+        "CC",
+        "G"
+      ],
+      [
+        "UU",
+        "AUU"
+      ],
+      [
+        "AU",
+        "AUC"
+      ],
+      [
+        "UC",
+        "AGCC"
+      ],
+      [
+        "UG",
+        "UAC"
+      ],
+      [
+        "AA",
+        "UUG"
+      ],
+      [
+        "UU",
+        "UAC"
+      ],
+      [
+        "AU",
+        "AAAA"
+      ],
+      [
+        "UUCC",
+        "CC"
+      ],
+      [
+        "AC",
+        "UAC"
+      ],
+      [
+        "UAA",
+        "CC"
+      ],
+      [
+        "CCC",
+        "G"
+      ],
+      [
+        "GC",
+        "GG"
+      ],
+      [
+        "UCC",
+        "UCC"
+      ],
+      [
+        "UC",
+        "AUG"
+      ],
+      [
+        "UCCC",
+        "AGC"
+      ],
+      [
+        "AG",
+        "AGGC"
+      ],
+      [
+        "UG",
+        "UAG"
+      ],
+      [
+        "UGGG",
+        "CC"
+      ],
+      [
+        "AU",
+        "ACC"
+      ],
+      [
+        "AG",
+        "AGAC"
+      ],
+      [
+        "UGC",
+        "UC"
+      ],
+      [
+        "UUC",
+        "UU"
+      ],
+      [
+        "AC",
+        "UAA"
+      ],
+      [
+        "AG",
+        "UAC"
+      ],
+      [
+        "AG",
+        "AGGG"
+      ],
+      [
+        "UGGG",
+        "GC"
+      ],
+      [
+        "UGC",
+        "UGC"
+      ],
+      [
+        "AG",
+        "AGCC"
+      ],
+      [
+        "UGG",
+        "AAG"
+      ],
+      [
+        "UC",
+        "AAC"
+      ],
+      [
+        "UG",
+        "AAGG"
+      ],
+      [
+        "UGCC",
+        "CC"
+      ],
+      [
+        "UG",
+        "AGCC"
+      ],
+      [
+        "AUG",
+        "AAG"
+      ],
+      [
+        "UU",
+        "AAG"
+      ],
+      [
+        "AGGC",
+        "UGG"
+      ],
+      [
+        "AU",
+        "AGC"
       ],
       [
         "AGG",
         "AGC"
       ],
       [
-        "AA",
-        "AGGG"
-      ],
-      [
-        "AG",
-        "AGGG"
-      ],
-      [
-        "ATG",
-        "AC"
-      ],
-      [
-        "AA",
-        "TATC"
-      ],
-      [
-        "TTC",
-        "TGC"
-      ],
-      [
-        "TTG",
-        "AAC"
-      ],
-      [
-        "ACC",
-        "TCC"
-      ],
-      [
-        "AA",
-        "TCTC"
-      ],
-      [
-        "TAC",
-        "G"
-      ],
-      [
-        "AA",
-        "AGCC"
-      ],
-      [
-        "AG",
-        "ATTC"
-      ],
-      [
-        "ATGG",
+        "AGAA",
         "CC"
       ],
       [
-        "TGG",
-        "AAG"
-      ],
-      [
-        "TAA",
-        "ATT"
-      ],
-      [
-        "TT",
-        "TAAC"
-      ],
-      [
-        "TTGC",
-        "AGTG"
-      ],
-      [
-        "TTGG",
-        "GG"
-      ],
-      [
-        "AA",
-        "TTCC"
-      ],
-      [
-        "ATTG",
+        "UUGG",
         "CC"
       ],
       [
-        "TTC",
-        "TG"
+        "AG",
+        "UGGC"
       ],
       [
-        "TTG",
-        "TTG"
-      ],
-      [
-        "ATG",
-        "TG"
-      ],
-      [
-        "TCCC",
-        "AAAGTGC"
-      ],
-      [
-        "AT",
-        "AGAG"
-      ],
-      [
-        "TGAA",
+        "GC",
         "GC"
       ],
       [
-        "TC",
-        "TTCC"
+        "AAAA",
+        "GG"
       ],
       [
-        "TT",
-        "AAAC"
+        "AUU",
+        "UUC"
       ],
       [
-        "AA",
-        "TTTG"
+        "UU",
+        "AAC"
+      ],
+      [
+        "GGC",
+        "G"
+      ],
+      [
+        "UC",
+        "AA"
+      ],
+      [
+        "UAA",
+        "AA"
+      ],
+      [
+        "AGG",
+        "AA"
+      ],
+      [
+        "AGG",
+        "AC"
+      ],
+      [
+        "AG",
+        "AUGG"
+      ],
+      [
+        "AGGG",
+        "CC"
+      ],
+      [
+        "UU",
+        "AUG"
+      ],
+      [
+        "AAG",
+        "AA"
+      ],
+      [
+        "GCC",
+        "CC"
+      ],
+      [
+        "UC",
+        "UAC"
+      ],
+      [
+        "AGGC",
+        "G"
+      ],
+      [
+        "AGC",
+        "UCC"
+      ],
+      [
+        "AGGG",
+        "GC"
+      ],
+      [
+        "UUC",
+        "UCC"
+      ],
+      [
+        "UG",
+        "UCUC"
+      ],
+      [
+        "UGGG",
+        "GG"
+      ],
+      [
+        "UG",
+        "AGAC"
+      ],
+      [
+        "ACC",
+        "UCC"
+      ],
+      [
+        "UC",
+        "AUU"
+      ],
+      [
+        "AAAA",
+        "CC"
+      ],
+      [
+        "UGG",
+        "AGG"
+      ],
+      [
+        "UG",
+        "AAGC"
+      ],
+      [
+        "AG",
+        "UAG"
+      ],
+      [
+        "ACC",
+        "AC"
+      ],
+      [
+        "UU",
+        "AUC"
+      ],
+      [
+        "UGG",
+        "AA"
+      ],
+      [
+        "ACC",
+        "AUG"
+      ],
+      [
+        "UU",
+        "UUCC"
+      ],
+      [
+        "UGG",
+        "AAC"
+      ],
+      [
+        "UGG",
+        "AGC"
+      ],
+      [
+        "AGG",
+        "AAC"
+      ],
+      [
+        "AGCC",
+        "G"
+      ],
+      [
+        "UGC",
+        "AGC"
+      ],
+      [
+        "UC",
+        "UGCC"
+      ],
+      [
+        "UU",
+        "UAG"
+      ],
+      [
+        "UU",
+        "UAU"
+      ],
+      [
+        "GCC",
+        "G"
+      ],
+      [
+        "AUU",
+        "UCC"
+      ],
+      [
+        "ACC",
+        "UGC"
+      ],
+      [
+        "AAC",
+        "UCC"
+      ],
+      [
+        "UG",
+        "UUUU"
+      ],
+      [
+        "AUU",
+        "AC"
+      ],
+      [
+        "UG",
+        "AGAA"
+      ],
+      [
+        "UCCC",
+        "G"
       ],
       [
         "AGG",
         "CCC"
       ],
       [
-        "AA",
-        "TGGC"
-      ],
-      [
-        "AA",
-        "ATATT"
-      ],
-      [
-        "ATT",
-        "TAG"
-      ],
-      [
-        "TTTT",
-        "TAA"
-      ],
-      [
-        "TT",
-        "AGCC"
-      ],
-      [
-        "TCC",
-        "AC"
-      ],
-      [
-        "ATG",
-        "AAG"
-      ],
-      [
-        "ATG",
-        "TAA"
-      ],
-      [
-        "TT",
-        "AGAA"
-      ],
-      [
-        "AGG",
-        "AAC"
-      ],
-      [
-        "AGC",
-        "TGC"
-      ],
-      [
-        "TGCC",
+        "AAGG",
         "CC"
       ],
       [
-        "TC",
-        "ACCC"
+        "UC",
+        "UAA"
       ],
       [
-        "TGGGATTAC",
-        "AGGC"
+        "UU",
+        "ACC"
+      ],
+      [
+        "AUGG",
+        "CC"
+      ],
+      [
+        "AA",
+        "AUAA"
+      ],
+      [
+        "AU",
+        "AG"
+      ],
+      [
+        "UU",
+        "UCUC"
+      ],
+      [
+        "UUC",
+        "UUC"
+      ],
+      [
+        "UGG",
+        "AC"
+      ],
+      [
+        "UG",
+        "AUCC"
+      ],
+      [
+        "AUC",
+        "UCC"
+      ],
+      [
+        "AAG",
+        "AC"
+      ],
+      [
+        "UCC",
+        "UGC"
+      ],
+      [
+        "AUC",
+        "ACC"
+      ],
+      [
+        "UG",
+        "UGGC"
+      ],
+      [
+        "UGCC",
+        "G"
+      ],
+      [
+        "UGG",
+        "CCC"
+      ],
+      [
+        "AG",
+        "AUGC"
+      ],
+      [
+        "AGC",
+        "UUC"
+      ],
+      [
+        "AGC",
+        "AC"
+      ],
+      [
+        "AUU",
+        "UUG"
+      ],
+      [
+        "AAG",
+        "AGG"
+      ],
+      [
+        "AAG",
+        "AUG"
       ],
       [
         "AAG",
         "AAC"
       ],
       [
-        "TTGG",
-        "GC"
+        "UU",
+        "UCCC"
       ],
       [
-        "TAAAA",
-        "ATAC"
+        "UUUU",
+        "UUUU"
       ],
       [
-        "TTTAG",
-        "TAG"
+        "UCC",
+        "UGCC"
+      ],
+      [
+        "AU",
+        "AGG"
+      ],
+      [
+        "UG",
+        "UUCC"
+      ],
+      [
+        "UGC",
+        "GG"
+      ],
+      [
+        "UU",
+        "AAAA"
+      ],
+      [
+        "AAGC",
+        "G"
+      ],
+      [
+        "UGGC",
+        "G"
+      ],
+      [
+        "AC",
+        "AGCC"
+      ],
+      [
+        "AAC",
+        "UC"
+      ],
+      [
+        "UAA",
+        "UAA"
       ],
       [
         "AA",
-        "TAAC"
+        "AGCC"
       ],
       [
-        "ATCC",
-        "CC"
+        "ACC",
+        "CCC"
+      ],
+      [
+        "AG",
+        "ACCC"
+      ],
+      [
+        "AUC",
+        "UUC"
+      ],
+      [
+        "AGAC",
+        "G"
+      ],
+      [
+        "UG",
+        "UUUC"
+      ],
+      [
+        "UUG",
+        "CCC"
+      ],
+      [
+        "U",
+        "A"
       ],
       [
         "AGC",
-        "TCC"
+        "UGG"
       ],
       [
         "AGG",
-        "TGC"
+        "AUG"
       ],
       [
-        "TG",
-        "AAGG"
-      ],
-      [
-        "AAAA",
+        "UGC",
         "AC"
       ],
       [
-        "TC",
-        "TCCC"
+        "UGC",
+        "UUC"
       ],
       [
-        "AGGC",
-        "TGGAGTGC"
+        "AUCC",
+        "CC"
+      ],
+      [
+        "AUU",
+        "UAA"
+      ],
+      [
+        "AUC",
+        "AC"
+      ],
+      [
+        "UG",
+        "UGGG"
+      ],
+      [
+        "UG",
+        "AGGG"
+      ],
+      [
+        "UGC",
+        "UCC"
+      ],
+      [
+        "AGG",
+        "UC"
+      ],
+      [
+        "AG",
+        "UCUC"
+      ],
+      [
+        "AA",
+        "AAGC"
+      ],
+      [
+        "ACC",
+        "ACC"
+      ],
+      [
+        "AAC",
+        "AC"
       ],
       [
         "AGC",
         "AAG"
       ],
       [
-        "TC",
-        "ATTC"
+        "UGG",
+        "AUG"
       ],
       [
-        "TC",
+        "AGC",
+        "GC"
+      ],
+      [
+        "AA",
+        "UAG"
+      ],
+      [
+        "UGC",
+        "UU"
+      ],
+      [
+        "UGAA",
+        "CC"
+      ],
+      [
+        "UG",
+        "UGCC"
+      ],
+      [
+        "UG",
+        "AUGG"
+      ],
+      [
+        "UGG",
+        "UGG"
+      ],
+      [
+        "AUG",
+        "AC"
+      ],
+      [
+        "UU",
+        "UAUU"
+      ],
+      [
+        "UGC",
+        "UGGG"
+      ],
+      [
+        "AA",
+        "UAU"
+      ],
+      [
+        "AAAA",
+        "UAA"
+      ],
+      [
+        "GG",
+        "GGC"
+      ],
+      [
+        "UG",
+        "AUUC"
+      ],
+      [
+        "AG",
+        "UUCC"
+      ],
+      [
+        "AA",
+        "AGAC"
+      ],
+      [
+        "UG",
+        "UAUU"
+      ],
+      [
+        "AA",
+        "AGGC"
+      ],
+      [
+        "AG",
+        "UGCC"
+      ],
+      [
+        "AG",
+        "UUUC"
+      ],
+      [
+        "AC",
+        "AGAA"
+      ],
+      [
+        "ACC",
+        "AGC"
+      ],
+      [
+        "UG",
+        "ACCC"
+      ],
+      [
+        "UC",
+        "UUCC"
+      ],
+      [
+        "AG",
+        "UGAC"
+      ],
+      [
+        "AG",
+        "AUUC"
+      ],
+      [
+        "AAGG",
+        "GC"
+      ],
+      [
+        "AUC",
+        "AUC"
+      ],
+      [
+        "AU",
+        "AAAC"
+      ],
+      [
+        "ACAC",
+        "G"
+      ],
+      [
+        "AA",
+        "AUGC"
+      ],
+      [
+        "AC",
+        "UUCC"
+      ],
+      [
+        "AAG",
+        "CCC"
+      ],
+      [
+        "UG",
+        "UAU"
+      ],
+      [
+        "UU",
+        "AGG"
+      ],
+      [
+        "AG",
+        "AUCC"
+      ],
+      [
+        "AG",
+        "UGAA"
+      ],
+      [
+        "UU",
+        "AGC"
+      ],
+      [
+        "AAC",
+        "AAC"
+      ],
+      [
+        "AAG",
+        "UC"
+      ],
+      [
+        "ACC",
+        "UUG"
+      ],
+      [
+        "ACC",
+        "GC"
+      ],
+      [
+        "ACC",
+        "UGG"
+      ],
+      [
+        "AUU",
+        "CCC"
+      ],
+      [
+        "AC",
+        "AAAA"
+      ],
+      [
+        "UCAC",
+        "UGC"
+      ],
+      [
+        "AA",
+        "AUGG"
+      ],
+      [
+        "AA",
+        "AUCC"
+      ],
+      [
+        "AA",
+        "UGAA"
+      ],
+      [
+        "AC",
+        "GCC"
+      ],
+      [
+        "AGG",
+        "AGAA"
+      ],
+      [
+        "UUC",
+        "UGC"
+      ],
+      [
+        "AG",
+        "UGGG"
+      ],
+      [
+        "AAG",
+        "AGC"
+      ],
+      [
+        "UU",
+        "AU"
+      ],
+      [
+        "AUC",
+        "UGC"
+      ],
+      [
+        "AG",
+        "UGUG"
+      ],
+      [
+        "AUG",
+        "AUG"
+      ],
+      [
+        "UCC",
+        "CCC"
+      ],
+      [
+        "UUC",
+        "AAG"
+      ],
+      [
+        "UC",
+        "UCCC"
+      ],
+      [
+        "AUC",
+        "UUG"
+      ],
+      [
+        "UCC",
+        "AC"
+      ],
+      [
+        "AGC",
         "GG"
+      ],
+      [
+        "AGG",
+        "UGG"
+      ],
+      [
+        "UGC",
+        "UGG"
+      ],
+      [
+        "UG",
+        "AUGC"
+      ],
+      [
+        "AAG",
+        "AAAA"
+      ],
+      [
+        "AG",
+        "UUUU"
+      ],
+      [
+        "ACCC",
+        "G"
+      ],
+      [
+        "AGC",
+        "UU"
+      ],
+      [
+        "AA",
+        "AUUC"
+      ],
+      [
+        "AA",
+        "UUUU"
+      ],
+      [
+        "AUC",
+        "UU"
+      ],
+      [
+        "AUG",
+        "UC"
+      ],
+      [
+        "ACC",
+        "UUC"
+      ],
+      [
+        "UCC",
+        "GG"
+      ],
+      [
+        "AG",
+        "UGAG"
+      ],
+      [
+        "AAGG",
+        "GG"
+      ],
+      [
+        "AACC",
+        "CC"
+      ],
+      [
+        "UGC",
+        "GC"
+      ],
+      [
+        "AGGG",
+        "GG"
+      ],
+      [
+        "AA",
+        "ACAC"
+      ],
+      [
+        "AA",
+        "AGAG"
+      ],
+      [
+        "AU",
+        "UGUG"
+      ],
+      [
+        "AGC",
+        "AGG"
+      ],
+      [
+        "UC",
+        "UGUC"
+      ],
+      [
+        "AAC",
+        "UUC"
+      ],
+      [
+        "AUU",
+        "UAC"
+      ],
+      [
+        "AAAC",
+        "G"
+      ],
+      [
+        "UCC",
+        "UGG"
+      ],
+      [
+        "AG",
+        "UAGC"
+      ],
+      [
+        "AAG",
+        "UU"
+      ],
+      [
+        "UG",
+        "AGAG"
+      ],
+      [
+        "UG",
+        "UCCC"
+      ],
+      [
+        "AAG",
+        "ACC"
+      ],
+      [
+        "UC",
+        "UAG"
+      ],
+      [
+        "UUC",
+        "UGG"
+      ],
+      [
+        "AC",
+        "UGUG"
       ]
     ]
   }

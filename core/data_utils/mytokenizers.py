@@ -26,7 +26,7 @@ class KMERTokenizer:
         except (IndexError, ValueError):
             raise ValueError(f"Failed to extract k from tokenizer name: {name}")
 
-        base_path = "/projects/slmreasoning/yifang/tokenizers"
+        base_path = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/tokenizers"
         file_path = os.path.join(base_path, f"{name}.json")
 
         with open(file_path, "r", encoding="utf-8") as f:
@@ -63,7 +63,7 @@ class KMERTokenizer:
 
 class MyTokenizer:
     def __init__(self, name):
-        base_path="/projects/slmreasoning/yifang/tokenizers"
+        base_path="/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/tokenizers"
         file_path = os.path.join(base_path, f"{name}.json")
         if "bpe" in name:
             self.tokenizer = Tokenizer.from_file(file_path)
@@ -74,7 +74,7 @@ class MyTokenizer:
 
         else:
             raise ValueError("Unknown tokenizer type")
-
+        
     def encode(self, text):
         return self.tokenizer.encode(text)
 

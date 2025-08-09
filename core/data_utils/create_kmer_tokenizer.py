@@ -1,4 +1,5 @@
 import json
+import os
 from itertools import product
 import logging
 logger = logging.getLogger(__name__)
@@ -27,13 +28,14 @@ def create_kmer_vocab_dict(k, alphabet):
     return {"vocab": vocab}
 
 def save_vocab_to_json(vocab_dict, filename):
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(vocab_dict, f, indent=2, ensure_ascii=False)
 
 
-alphabet = ['A', 'C', 'G', 'T']
+alphabet = ['A', 'C', 'G', 'U']
 
 for k in [1, 3, 4, 5, 6]:
     vocab_dict = create_kmer_vocab_dict(k, alphabet)
-    save_vocab_to_json(vocab_dict, f'/projects/slmreasoning/yifang/tokenizers/kmer-{k}.json')
-    logger.info(f"词表已保存到 /projects/slmreasoning/yifang/tokenizers/kmer-{k}.json")
+    save_vocab_to_json(vocab_dict, f'tokenizers/kmer-{k}.json')
+    logger.info(f"词表已保存到 /tokenizers/kmer-{k}.json")

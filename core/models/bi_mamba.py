@@ -1,5 +1,5 @@
 """Caduceus model for Hugging Face.
-
+    双向模型，测试效果与单向差别不大，暂时没用到
 """
 
 import inspect

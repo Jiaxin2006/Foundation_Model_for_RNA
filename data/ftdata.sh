@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -J ft_data_processing
+#SBATCH --account=begl-delta-gpu
+#SBATCH --partition=gpuA40x4
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --gres=gpu:1
+#SBATCH --mem=16G
+#SBATCH --time=1:00:00
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%j.err
+
+# 加载模块和环境
+module purge
+module load anaconda3_gpu/23.7.4
+
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate renv
+# pip install Bio
+
+CASE=k2
+
+# 运行数据处理脚本
+python $CASE/preprocess.py

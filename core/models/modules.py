@@ -44,7 +44,7 @@ class HyenaModule(nn.Module):
     def __init__(self, input_dim, output_dim):
         super().__init__()
         self.project_in = nn.Linear(input_dim, output_dim) if input_dim != output_dim else nn.Identity()
-        self.hyena = HyenaEncoderLayer(d_model=output_dim, l_max=512)
+        self.hyena = HyenaEncoderLayer(d_model=output_dim, l_max=1024)
         self.project_out = nn.Identity()
 
     def forward(self, x):

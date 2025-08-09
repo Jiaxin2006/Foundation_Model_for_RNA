@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     experiment_name = args.experiment_name
-    config_path = f"/projects/slmreasoning/yifang/configs/{experiment_name}"
+    config_path = f"/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/configs/{experiment_name}"
     architecture_config_flie = os.path.join(config_path, "architecture__configs.json")
 
     config = ModelConfig.from_json(os.path.join(config_path, "searchSpace_configs.json"))
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     
     Mask_Pretrain_Model = MaskedModeling_PretrainModel(config)
 
-    jsonl_file = "/projects/slmreasoning/yifang/datasets/GRCh38/processed_data/filtered_sentences.jsonl"
+    jsonl_file = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/cleaned_rna.jsonl"
     dataset = DNAMaskDataset(jsonl_file, data_usage_rate=data_usage_rate, tokenizer_name=tokenizer_name)
     collate_fn = build_collate_fn(pad_idx=dataset.pad_idx)
 
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
     
-    log_dir = f"/projects/slmreasoning/yifang/nni_pre_logs/mask/{experiment_name}/"
+    log_dir = f"/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/nni_pre_logs/mask/{experiment_name}/"
 
     checkpoint_callback = ModelCheckpoint(
         dirpath=log_dir,
