@@ -35,8 +35,6 @@ def plot_tokenizer_vs_task_acc(
     epoch=1,
     base_save_path=None
 ):
-    import matplotlib.pyplot as plt
-    import os
 
     df_filtered = df[
         (df["architecture"] == architecture) &

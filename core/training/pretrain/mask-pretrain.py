@@ -96,6 +96,8 @@ if __name__ == "__main__":
         batch_size = 256
         if 'mamba' in experiment_name:
             batch_size = 128
+    elif "hyena" in experiment_name:
+        batch_size = 4
     else:
         batch_size=512
 

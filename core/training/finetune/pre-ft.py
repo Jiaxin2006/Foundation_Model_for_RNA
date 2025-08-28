@@ -4,15 +4,17 @@ import os
 import torch 
 from core.models.model import ContrastiveLearning_ModelSpace,ModelConfig,MaskedModeling_ModelSpace
 import nni.nas.evaluator.pytorch.lightning as pl
+from core.data_utils.mytokenizers import MyTokenizer
 import csv
 from tqdm import tqdm
 import argparse
 # gai
 from core.models.training_utils import set_seed, cls_evaluate_model, continual_mask_pretrain, continual_contrastive_pretrain, build_all_models, load_rna_clustering, embed_sequences, cluster_and_evaluate
-from core.models.training_utils import align_train_epoch, align_eval_epoch
-from core.data_utils.dataset import AlignDataset, align_collate
+from core.models.training_utils import  align_eval_epoch_correct, align_train_epoch_MUL
+from core.data_utils.dataset import AlignDataset, align_collate, MSADataset
 from torch.utils.data import DataLoader
 from transformers import get_linear_schedule_with_warmup
+import numpy as np
 
 
 
@@ -33,7 +35,7 @@ if __name__ == "__main__":
         "--task_index", 
         type=int, 
         nargs='+', 
-        choices=[0, 1, 2, 3, 4], 
+        choices=[0, 1, 2], 
         default=[0],
         help="List of task indices to run: 0 (5'UTR MLR), 1 (RNA Clustering)"
     )
@@ -61,7 +63,7 @@ if __name__ == "__main__":
     }
 
     #ckpt_epoch_num_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    ckpt_epoch_num_list = [0, 4]
+    ckpt_epoch_num_list = [0,4]
     config = ModelConfig.from_json(f"/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/configs/{experiment_name}/searchSpace_configs.json")
     config.channel_config_list_done_flag = True
     tokenizer_name = config.tokenizer_name
@@ -72,7 +74,7 @@ if __name__ == "__main__":
     if strategy == 'contrastive':
         continual_pretrain = continual_contrastive_pretrain
         Pretrained_ModelSpace = ContrastiveLearning_ModelSpace(config)
-        csv_file_path = output_dir + "con-ft_results.csv"
+        csv_file_path = output_dir + "con-ft_results-test.csv"
 
     elif strategy == 'mask':
         Pretrained_ModelSpace = MaskedModeling_ModelSpace(config)
@@ -121,6 +123,10 @@ if __name__ == "__main__":
                     data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/family"
                     seqs, labels, family_names = load_rna_clustering(data_dir)
                     embeddings, t_embed = embed_sequences(seqs, model, tokenizer_name)
+                    if np.isnan(embeddings).any() or np.isinf(embeddings).any():
+                        print(f"Warning: Found NaN/Inf values in embeddings for model {model_name}")
+                        embeddings = np.nan_to_num(embeddings, nan=0.0, posinf=1e6, neginf=-1e6)
+    
                     results = cluster_and_evaluate(embeddings, labels, n_clusters=len(family_names))
                     row = [
                         experiment_name, task_name, epoch_num + 1, model_name,
@@ -135,15 +141,62 @@ if __name__ == "__main__":
                     with open(csv_file_path, mode='a', newline='') as f:
                         csv.writer(f).writerow(row)
 
-                if task_index == 2:
-                    data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2"  # 放 .ref.fa 的目录
-                    train_ds = AlignDataset("train", tokenizer_name, data_dir)
-                    val_ds   = AlignDataset("dev",   tokenizer_name, data_dir)
-                    test_ds  = AlignDataset("test",  tokenizer_name, data_dir)
-                    train_loader = DataLoader(train_ds, batch_size=8, shuffle=True, collate_fn=align_collate)
-                    val_loader   = DataLoader(val_ds,   batch_size=8, collate_fn=align_collate)
-                    test_loader  = DataLoader(test_ds,  batch_size=8, collate_fn=align_collate)
+                # if task_index == 2:
+                #     data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2"  # 放 .ref.fa 的目录
+                #     train_ds = AlignDataset("train", tokenizer_name, data_dir)
+                #     val_ds   = AlignDataset("dev",   tokenizer_name, data_dir)
+                #     test_ds  = AlignDataset("test",  tokenizer_name, data_dir)
+                    
+                #     # msa_data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2"
+                #     # eval_data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2"
+                    
+                #     # train_ds = MSADataset("train", tokenizer_name, msa_data_dir)
+                #     # val_ds = AlignDataset("dev", tokenizer_name, eval_data_dir)  # 保持原评估数据
+                #     # test_ds = AlignDataset("test", tokenizer_name, eval_data_dir)
 
+                #     train_loader = DataLoader(train_ds, batch_size=2, shuffle=True, collate_fn=align_collate)
+                #     val_loader   = DataLoader(val_ds,   batch_size=2, collate_fn=align_collate)
+                #     test_loader  = DataLoader(test_ds,  batch_size=2, collate_fn=align_collate)
+                #     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4)
+                #     num_steps = len(train_loader) * 3   # 3 epoch 快速验证
+                #     scheduler = get_linear_schedule_with_warmup(optimizer, 50, num_steps)
+
+                #     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+                #     model.to(device)
+                #     for epoch in range(3):
+                #         align_train_epoch(model, device, train_loader, optimizer, scheduler)
+                #         val_f1, _, _ = align_eval_epoch_correct(model, device, val_loader)
+                #     test_f1, sen, ppv = align_eval_epoch_correct(model, device, test_loader)
+                #     row = [
+                #         experiment_name, task_name, epoch_num + 1, model_name,
+                #         "",                                 # acc 留空
+                #         "",                                 # embed_time 留空
+                #         "",                                 # ARI 留空
+                #         "",                                 # Homogeneity 留空
+                #         "",                                 # Completeness 留空
+                #         "",                                 # cluster_time 留空
+                #         round(test_f1, 4),                  # task2 的 F1
+                #         round(sen, 4),                      # SEN
+                #         round(ppv, 4)                       # PPV
+                #     ]
+                #     with open(csv_file_path, mode='a', newline='') as f:
+                #         csv.writer(f).writerow(row)
+                if task_index == 2:
+                    data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2" 
+                    msa_data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2"
+                    eval_data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2"
+                    
+                    train_ds = MSADataset("train", tokenizer_name, msa_data_dir)
+                    val_ds = AlignDataset("dev", tokenizer_name, eval_data_dir)  # 保持原评估数据
+                    test_ds = AlignDataset("test", tokenizer_name, eval_data_dir)
+                    # train_ds = AlignDataset("train", tokenizer_name, data_dir)
+                    # val_ds   = AlignDataset("dev",   tokenizer_name, data_dir)
+                    # test_ds  = AlignDataset("test",  tokenizer_name, data_dir)
+                    tokenizer = MyTokenizer(tokenizer_name)
+
+                    train_loader = DataLoader(train_ds, batch_size=2, shuffle=True, collate_fn=align_collate)
+                    val_loader   = DataLoader(val_ds,   batch_size=2, collate_fn=align_collate)
+                    test_loader  = DataLoader(test_ds,  batch_size=2, collate_fn=align_collate)
                     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4)
                     num_steps = len(train_loader) * 3   # 3 epoch 快速验证
                     scheduler = get_linear_schedule_with_warmup(optimizer, 50, num_steps)
@@ -151,20 +204,20 @@ if __name__ == "__main__":
                     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
                     model.to(device)
                     for epoch in range(3):
-                        align_train_epoch(model, device, train_loader, optimizer, scheduler)
-                        val_f1, _, _ = align_eval_epoch(model, device, val_loader)
-                    test_f1, sen, ppv = align_eval_epoch(model, device, test_loader)
+                        align_train_epoch_MUL(model, device, train_loader, optimizer, scheduler, tokenizer)
+                        val_f1, _, _ = align_eval_epoch_correct(model, device, val_loader)
+                    test_f1, sen, ppv = align_eval_epoch_correct(model, device, test_loader)
                     row = [
                         experiment_name, task_name, epoch_num + 1, model_name,
-                        "",                                 # acc 留空
-                        "",                                 # embed_time 留空
-                        "",                                 # ARI 留空
-                        "",                                 # Homogeneity 留空
-                        "",                                 # Completeness 留空
-                        "",                                 # cluster_time 留空
-                        round(test_f1, 4),                  # task2 的 F1
-                        round(sen, 4),                      # SEN
-                        round(ppv, 4)                       # PPV
+                        "",                                 
+                        "",                                 
+                        "",                            
+                        "",                            
+                        "",                           
+                        "",                            
+                        round(test_f1, 4),               
+                        round(sen, 4),                  
+                        round(ppv, 4)                    
                     ]
                     with open(csv_file_path, mode='a', newline='') as f:
                         csv.writer(f).writerow(row)

@@ -3,6 +3,7 @@ sys.path.append("../")
 from torch.utils.data import random_split
 from core.data_utils.dataset import DNAContrastiveDataset, build_collate_fn
 from core.models.model import ContrastiveLearning_PretrainModel, ModelConfig, ContrastiveLearning_ModelSpace
+
 import torch 
 from nni.nas.strategy import RandomOneShot
 import nni.nas.evaluator.pytorch.lightning as pl
@@ -68,6 +69,8 @@ if __name__ == "__main__":
     
     trainer = pl.Trainer(
         max_epochs=10,
+        accumulate_grad_batches=16,
+        precision="bf16-mixed", 
         log_every_n_steps=1000,
         callbacks=[checkpoint_callback],
         default_root_dir=log_dir,
@@ -79,8 +82,10 @@ if __name__ == "__main__":
         batch_size = 256
         if 'mamba' in experiment_name:
             batch_size = 128
+        if 'mix' in experiment_name:
+            batch_size = 4
     elif "hyena" in experiment_name:
-        batch_size = 16
+        batch_size = 1
     else:
         batch_size=512
 
