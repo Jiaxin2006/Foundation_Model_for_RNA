@@ -17,8 +17,8 @@ import numpy as np
 from tqdm import tqdm
 import argparse
 # gai
-from core.models.training_utils import set_seed, cls_evaluate_model, continual_mask_pretrain, continual_contrastive_pretrain, build_all_models, load_rna_clustering, embed_sequences, cluster_and_evaluate
-from core.models.training_utils import align_eval_epoch_correct, align_train_epoch_MUL
+from core.models.training_utils import set_seed, cls_evaluate_model, build_all_alignment_models, build_all_models, load_rna_clustering, embed_sequences, cluster_and_evaluate
+from core.models.training_utils import align_eval_epoch_correct, align_train_epoch_MUL, align_eval_epoch
 from core.data_utils.dataset import AlignDataset, align_collate, MSADataset
 from torch.utils.data import DataLoader
 from transformers import get_linear_schedule_with_warmup
@@ -89,9 +89,13 @@ if __name__ == "__main__":
     for epoch_num in tqdm(ckpt_epoch_num_list, desc="Checkpoint Steps"):    
         for task_index in tqdm(args.task_index , desc=f"Tasks for epoch={epoch_num}", leave=False): # range(), gai
 
-            num_classes = 3 if task_index == 11 else 2  # 几分类
+            num_classes = 2 
             task_name = task_index_name_map[task_index]
-            models = build_all_models(num_classes, Pretrained_ModelSpace)
+            
+            if task_index in [0,1]: 
+                models = build_all_models(num_classes, Pretrained_ModelSpace)
+            else:
+                models = build_all_alignment_models(Pretrained_ModelSpace)
 
 
             for tuple_model in tqdm(models, desc=f"Models for task {task_index}", leave=False):     # gai 先测前三个
@@ -112,7 +116,7 @@ if __name__ == "__main__":
                     embeddings, t_embed = embed_sequences(seqs, model, tokenizer_name)
                     if np.isnan(embeddings).any() or np.isinf(embeddings).any():
                         print(f"Warning: Found NaN/Inf values in embeddings for model {model_name}")
-                        # 用0替换NaN/Inf, for bi-mamba
+                        # 用0替换NaN/Inf, for bimamba
                         embeddings = np.nan_to_num(embeddings, nan=0.0, posinf=1e6, neginf=-1e6)
     
                     results = cluster_and_evaluate(embeddings, labels, n_clusters=len(family_names))
@@ -131,34 +135,53 @@ if __name__ == "__main__":
                         csv.writer(f).writerow(row)
 
                 if task_index == 2:
-                    # data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2" 
+                    data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2" 
                     msa_data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/train_testset/train/trainA"
                     eval_data_dir = "/work/hdd/begl/yfang4/projects/jiaxin/NAS-for-Bio/data/k2"
                     
-                    train_ds = MSADataset("train", tokenizer_name, msa_data_dir)
-                    val_ds = AlignDataset("dev", tokenizer_name, eval_data_dir)  # 保持原评估数据
-                    test_ds = AlignDataset("test", tokenizer_name, eval_data_dir)
-                    # train_ds = AlignDataset("train", tokenizer_name, data_dir)
-                    # val_ds   = AlignDataset("dev",   tokenizer_name, data_dir)
-                    # test_ds  = AlignDataset("test",  tokenizer_name, data_dir)
+                    # train_ds = MSADataset("train", tokenizer_name, msa_data_dir)
+                    # val_ds = AlignDataset("dev", tokenizer_name, eval_data_dir)  # 保持原评估数据
+                    # test_ds = AlignDataset("test", tokenizer_name, eval_data_dir)
+                    train_ds = AlignDataset("train", tokenizer_name, data_dir)
+                    val_ds   = AlignDataset("dev",   tokenizer_name, data_dir)
+                    test_ds  = AlignDataset("test",  tokenizer_name, data_dir)
+                    def analyze_dataset_quality(dataset, sample_size=10):
+                        """分析数据集质量"""
+                        for i in range(min(sample_size, len(dataset))):
+                            idsA, idsB, contact, seqA, seqB, lenA, lenB, pair_A, pair_B = dataset[i]
+                            
+                            print(f"\nSample {i}:")
+                            print(f"SeqA length: {lenA}, SeqB length: {lenB}")
+                            print(f"Contact matrix shape: {contact.shape}")
+                            print(f"Non-zero contacts: {torch.sum(contact > 0.5).item()}")
+                            print(f"Contact density: {torch.sum(contact > 0.5).item() / (lenA * lenB):.4f}")
+                            print(f"Pair indices A: {pair_A[:5]}...")  # 前5个
+                            print(f"Pair indices B: {pair_B[:5]}...")
+                            
+                            # 检查contact matrix是否合理
+                            if torch.sum(contact > 0.5).item() == 0:
+                                print("WARNING: No positive contacts in this sample!")
+
+                    # 在训练前调用
+                    # analyze_dataset_quality(train_ds)
+
+                    # exit(1)
+
                     tokenizer = MyTokenizer(tokenizer_name)
 
-                    train_loader = DataLoader(train_ds, batch_size=2, shuffle=True, collate_fn=align_collate)
-                    val_loader   = DataLoader(val_ds,   batch_size=2, collate_fn=align_collate)
-                    test_loader  = DataLoader(test_ds,  batch_size=2, collate_fn=align_collate)
+                    train_loader = DataLoader(train_ds, batch_size=1, shuffle=True, collate_fn=align_collate)
+                    val_loader   = DataLoader(val_ds,   batch_size=1, collate_fn=align_collate)
+                    test_loader  = DataLoader(test_ds,  batch_size=1, collate_fn=align_collate)
                     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4)
                     num_steps = len(train_loader) * 3   # 3 epoch 快速验证
                     scheduler = get_linear_schedule_with_warmup(optimizer, 50, num_steps)
-                    '''
-                    1. task 2 重写model，上传github
-                    3. 测RNABERT的表现
-                    '''
+
                     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
                     model.to(device)
                     for epoch in range(3):
                         align_train_epoch_MUL(model, device, train_loader, optimizer, scheduler, tokenizer)
-                        val_f1, _, _ = align_eval_epoch_correct(model, device, val_loader)
-                    test_f1, sen, ppv = align_eval_epoch_correct(model, device, test_loader)
+                        val_f1, _, _ = align_eval_epoch(model, device, val_loader)
+                    test_f1, sen, ppv = align_eval_epoch(model, device, test_loader)
                     row = [
                         experiment_name, task_name, epoch_num + 1, model_name,
                         "",                                 

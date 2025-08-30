@@ -149,65 +149,134 @@ def load_align_pairs(data_dir, max_pairs=1000):
     # print("第一条记录:", pairs[0]) if pairs else None
     return pairs
 '''
-def load_align_pairs(data_dir, max_pairs=1000): # TODO
+# def load_align_pairs(data_dir, max_pairs=1000): # TODO
+#     """
+#     读取 .ref.fa，输出 [(seqA, seqB, contact)]
+#     contact: L1×L2 矩阵，表示序列间的对应关系（从比对中提取）
+#     """
+#     ref_path = os.path.join(data_dir, "all_ref.fa")
+#     records = list(SeqIO.parse(ref_path, "fasta"))
+#     pairs = []
+    
+#     # 简单：相邻两条做配对
+#     for i in range(0, min(len(records), max_pairs*2), 2):
+#         if i+1 >= len(records): 
+#             break
+            
+#         refA = str(records[i].seq).upper().replace("T", "U")
+#         refB = str(records[i+1].seq).upper().replace("T", "U")
+        
+#         # 去除gap得到原始序列
+#         seqA = refA.replace("-", "").replace('.', '')
+#         seqB = refB.replace("-", "").replace('.', '')
+        
+#         # 建立从比对位置到原始序列位置的映射
+#         mapA, mapB = [], []
+#         idxA = idxB = 0
+        
+#         for a, b in zip(refA, refB):
+#             if a != "-" and a != '.':
+#                 mapA.append(idxA)  # 原始序列中的位置
+#                 idxA += 1
+#             else:
+#                 mapA.append(-1)  # gap
+                
+#             if b != "-" and b != '.':
+#                 mapB.append(idxB)
+#                 idxB += 1
+#             else:
+#                 mapB.append(-1)
+
+#         L1, L2 = len(seqA), len(seqB)
+#         contact = np.zeros((L1, L2), dtype=np.int8)
+        
+#         # 从比对中提取对应关系
+#         for k, (a, b) in enumerate(zip(refA, refB)):
+#             # 跳过任一方为gap的位置
+#             if a in "-." or b in "-.":
+#                 continue
+                
+#             # 只有当两边都是有效碱基时才建立联系 TODO
+#             # if a in "AUGC" and b in "AUGC":
+#             if a not in "-." and b not in "-.":            # 只有互补碱基对才通过
+#                 pos_a = mapA[k]  # seqA中的位置
+#                 pos_b = mapB[k]  # seqB中的位置
+                
+#                 # 确保位置有效
+#                 if pos_a >= 0 and pos_b >= 0 and pos_a < L1 and pos_b < L2:
+#                     contact[pos_a, pos_b] = 1
+        
+#         pairs.append((seqA, seqB, contact))     
+#     return pairs
+
+from itertools import zip_longest
+
+def load_align_pairs(data_dir, max_pairs=10000, require_complement=False, debug=False):
     """
-    读取 .ref.fa，输出 [(seqA, seqB, contact)]
-    contact: L1×L2 矩阵，表示序列间的对应关系（从比对中提取）
+    读取 all_ref.fa，输出 [(seqA, seqB, contact)]。
+    contact: L1 x L2 二值矩阵，表示比对列中两边同时为碱基（或互补碱基）的对应关系（以 ungapped 序列为索引）。
+    - uses padding to avoid truncation when two aligned strings have different lengths.
+    - require_complement: 若为 True，则只有互补碱基对（A-U, G-C）才计为 contact。
     """
     ref_path = os.path.join(data_dir, "all_ref.fa")
     records = list(SeqIO.parse(ref_path, "fasta"))
     pairs = []
-    
-    # 简单：相邻两条做配对
-    for i in range(0, min(len(records), max_pairs*2), 2):
-        if i+1 >= len(records): 
+    nrec = len(records)
+    max_iter = min(nrec, max_pairs * 2)
+    if debug:
+        print(f"[load_align_pairs] total records={nrec}, will process up to index {max_iter}")
+
+    comp_map = {'A':'U','U':'A','G':'C','C':'G'}  # RNA complement
+
+    for i in range(0, max_iter, 2):
+        if i+1 >= nrec:
             break
-            
-        refA = str(records[i].seq).upper().replace("T", "U")
-        refB = str(records[i+1].seq).upper().replace("T", "U")
-        
-        # 去除gap得到原始序列
-        seqA = refA.replace("-", "").replace('.', '')
-        seqB = refB.replace("-", "").replace('.', '')
-        
-        # 建立从比对位置到原始序列位置的映射
+        refA = str(records[i].seq).upper().replace("T","U")
+        refB = str(records[i+1].seq).upper().replace("T","U")
+
+        # pad shorter one on the right with '-'，保证不被 zip 截断
+        maxL = max(len(refA), len(refB))
+        if len(refA) < maxL: refA = refA.ljust(maxL, '-')
+        if len(refB) < maxL: refB = refB.ljust(maxL, '-')
+
+        # 构建从对齐列 -> ungapped 原始序号 的映射
         mapA, mapB = [], []
         idxA = idxB = 0
-        
         for a, b in zip(refA, refB):
-            if a != "-" and a != '.':
-                mapA.append(idxA)  # 原始序列中的位置
-                idxA += 1
+            if a not in "-.":
+                mapA.append(idxA); idxA += 1
             else:
-                mapA.append(-1)  # gap
-                
-            if b != "-" and b != '.':
-                mapB.append(idxB)
-                idxB += 1
+                mapA.append(-1)
+            if b not in "-.":
+                mapB.append(idxB); idxB += 1
             else:
                 mapB.append(-1)
 
+        seqA = refA.replace("-", "").replace('.', '')
+        seqB = refB.replace("-", "").replace('.', '')
         L1, L2 = len(seqA), len(seqB)
         contact = np.zeros((L1, L2), dtype=np.int8)
-        
-        # 从比对中提取对应关系
+
+        # 提取对应关系：遍历所有对齐列（两边均为碱基时建立联系）
+        aligned_cols = 0
+        both_non_gap = 0
         for k, (a, b) in enumerate(zip(refA, refB)):
-            # 跳过任一方为gap的位置
             if a in "-." or b in "-.":
                 continue
-                
-            # 只有当两边都是有效碱基时才建立联系 TODO
-            # if a in "AUGC" and b in "AUGC":
-            if (a == 'A' and b == 'U') or (a == 'U' and b == 'A') or (a == 'G' and b == 'C') or (a == 'C' and b == 'G'):
-            # 只有互补碱基对才通过
-                pos_a = mapA[k]  # seqA中的位置
-                pos_b = mapB[k]  # seqB中的位置
-                
-                # 确保位置有效
-                if pos_a >= 0 and pos_b >= 0 and pos_a < L1 and pos_b < L2:
-                    contact[pos_a, pos_b] = 1
-        
-        pairs.append((seqA, seqB, contact))     
+            aligned_cols += 1
+            pos_a = mapA[k]
+            pos_b = mapB[k]
+            if pos_a >= 0 and pos_b >= 0:
+                both_non_gap += 1
+                if require_complement:
+                    if comp_map.get(a, '') != b:
+                        continue
+                contact[pos_a, pos_b] = 1
+
+        if debug:
+            print(f"pair {i//2}: rec_idx {i}/{i+1}, len(refA)={len(refA)}, len(refB)={len(refB)}, aligned_cols(total cols with both bases)={both_non_gap}, seqA_len={L1}, seqB_len={L2}, contacts={contact.sum()}")
+
+        pairs.append((seqA, seqB, contact))
     return pairs
 
 def get_offsets_from_encoding(enc):
@@ -290,7 +359,7 @@ class AlignDataset(Dataset):
 
         # Truncate offsets to token count to be safe
         offsetsA = offsetsA[:len(idsA)]
-        offsetsB = offsetsB[:len(idsB)]
+        offsetsB = offsetsB[:len(idsB)]        
 
         # 把 base-level contact 聚合到 token 级别：token_contact shape [T1, T2]
         token_contact = aggregate_contact_to_tokens(contact_base, offsetsA, offsetsB, agg='any')

@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-def align_eval_epoch_correct(model, device, val_loader, use_dp=True, verbose=False):
+def align_eval_epoch_correct(model, device, val_loader, use_dp=True, verbose=True):
     """
     正确使用Aln_C.global_aln的版本
     """
@@ -50,7 +50,8 @@ def align_eval_epoch_correct(model, device, val_loader, use_dp=True, verbose=Fal
             z1_list = [emB[b] for b in range(emB.size(0))]
 
             bert_scores, _ = model.match(z0_list, z1_list)
-            
+
+
             B = idsA.size(0)
             for b in range(B):
                 bert_score = bert_scores[b]  # [L1, L2]
@@ -60,7 +61,15 @@ def align_eval_epoch_correct(model, device, val_loader, use_dp=True, verbose=Fal
                 sequence_b = seqB_list[b]
                 seq_len_a = int(seq_lensA[b].item())
                 seq_len_b = int(seq_lensB[b].item())
-                
+
+                print(f"Match score statistics: min={bert_score.min():.4f}, max={bert_score.max():.4f}, std={bert_score.std():.4f}")
+
+                # 测试simple alignment
+                alignment = model._simple_alignment(bert_score, seq_len_a, seq_len_b)
+                print(f"Simple alignment: {alignment}")
+
+                exit(1)
+                    
                 # 确保使用实际长度的bert_score
                 actual_bert_score = bert_score[:seq_len_a, :seq_len_b]
                 
@@ -76,21 +85,15 @@ def align_eval_epoch_correct(model, device, val_loader, use_dp=True, verbose=Fal
                 try:
                     common_index_A_B_list = safe_global_aln(
                         bert_score_flat,      # match_score 列表
-                        margin_score_FP,      # margin_score_FP 列表  
-                        margin_score_FN,      # margin_score_FN 列表
                         sequence_a,           # seq1 字符串
                         sequence_b,           # seq2 字符串
                         seq_len_a,            # lengthA 整数
                         seq_len_b,            # lengthB 整数
-                        -1.0,                 # gap_open 浮点数
-                        -0.1,                 # gap_extend 浮点数（稍微宽松）
-                        1 if verbose and batch_idx == 0 and b == 0 else 0,  # print_align
-                        0                     # print_mat
                     )
                     
                     # 根据C++代码，返回的是长度为 max_length*2 的列表
                     # 前 max_length 个是序列A的匹配标记，后 max_length 个是序列B的
-                    max_length = 1024  # 从C++代码中看到的常数
+                    max_length = 1024
                     
                     # 提取匹配标记
                     match_A = common_index_A_B_list[:max_length]
@@ -176,7 +179,7 @@ def align_eval_epoch_correct(model, device, val_loader, use_dp=True, verbose=Fal
 
 
 def safe_global_aln(bert_score, sequence_a, sequence_b, seq_len_a, seq_len_b, 
-                    gap_open=-1.0, gap_extend=-0.1, verbose=False):
+                    gap_open=-1.0, gap_extend=-0.1, verbose=True):
     """
     安全的global_aln包装器，处理所有可能的错误情况
     """
@@ -400,7 +403,18 @@ def build_all_models(num_classes, model_space):
             path=path,
             mask_pred_head=getattr(model_space, "pred_head", None)
         )
-        # gai
+        all_models.append((arch_name, model))
+
+    return all_models
+
+def build_all_alignment_models(model_space):
+    """
+    枚举 model_space 中所有 cnn_arch 架构，构造完整模型。
+    返回: List of (arch_name, model)
+    """
+    all_models = []
+    #logger.info(f"model_space.paths_candidates is {model_space.paths_candidates}")
+    for arch_name, path in model_space.paths_candidates.items():
         alignment_model = SecondaryStructureAlignmentModel(
             embedding=model_space.embedding,
             encoder=path,
@@ -475,9 +489,11 @@ def align_train_epoch_MUL(model, device, train_loader, optimizer, scheduler, tok
             indices_0, indices_1 = torch.where(contact_b > 0.5)
             pad_token_id = tokenizer.token_to_id("[PAD]")
             
+            # print("len(indices_0):",len(indices_0))
             if len(indices_0) == 0:
                 # 如果没有正例，创建一些基于序列长度的对齐
                 # 获取实际序列长度（排除padding）
+                print("wrong")
                 actual_len_A = (idsA[b] != pad_token_id).sum().item()
                 actual_len_B = (idsB[b] != pad_token_id).sum().item()
                 
@@ -501,18 +517,27 @@ def align_train_epoch_MUL(model, device, train_loader, optimizer, scheduler, tok
         
         encoded_layers0 = model.get_encoded_sequence(idsA, attention_mask_A)
         encoded_layers1 = model.get_encoded_sequence(idsB, attention_mask_B)
+
+        # print(idsA)
+        # print(encoded_layers0)
+        # print(idsB)
+        # print(encoded_layers1)
         
         # 获取实际序列长度
         seq_len_0 = attention_mask_A.sum(dim=1).tolist()
         seq_len_1 = attention_mask_B.sum(dim=1).tolist()
-        
+        # print(seq_len_0, seq_len_1)
         # 转换为列表格式
         z0_list = model.em(encoded_layers0, seq_len_0)
         z1_list = model.em(encoded_layers1, seq_len_1)
+
+        # print(z0_list)
+        # print(z1_list)
         
         # MUL训练
         mul_loss = model.train_MUL(z0_list, z1_list, common_index_0, common_index_1, seq_len_0, seq_len_1)
         mul_loss = torch.tensor(0.0, device=device) if torch.isnan(mul_loss) else mul_loss
+        # print(mul_loss)
         
         loss = mul_loss
         loss.backward()
@@ -526,11 +551,13 @@ def align_train_epoch_MUL(model, device, train_loader, optimizer, scheduler, tok
         if batch_idx % 100 == 0:
             print(f'Batch {batch_idx}: Loss = {loss.item():.4f}')
     
+        print(f'Batch {batch_idx}: Loss = {loss.item():.4f}')
+        # exit(1)
     return total_loss / len(train_loader), epoch_mul_loss / len(train_loader)
 
 def align_eval_epoch(model, device, val_loader, use_dp=True, verbose=False):
     """
-    基于参考程序修复的评估函数
+    修复后的评估函数
     """
     model.eval()
     total_TP = 0
@@ -539,109 +566,128 @@ def align_eval_epoch(model, device, val_loader, use_dp=True, verbose=False):
 
     with torch.no_grad():
         for batch_idx, batch in enumerate(val_loader):
-            # 解包batch
-            idsA, idsB, contact, seqA_list, seqB_list, seq_lensA, seq_lensB, pairA_list, pairB_list = batch
-            idsA = idsA.to(device)
-            idsB = idsB.to(device)
-            contact = contact.to(device)
+            try:
+                # 解包batch
+                idsA, idsB, contact, seqA_list, seqB_list, seq_lensA, seq_lensB, pairA_list, pairB_list = batch
+                idsA = idsA.to(device)
+                idsB = idsB.to(device)
+                contact = contact.to(device)
 
-            # embeddings
-            emA = model.embedding(idsA)  # [B, L1, d]
-            emB = model.embedding(idsB)  # [B, L2, d]
+                # 使用模型的编码方法，而不是直接embedding
+                # 这样保持与训练时的一致性
+                pad_token_id = 0  # 或者从tokenizer获取
+                attention_mask_A = (idsA != pad_token_id).int()
+                attention_mask_B = (idsB != pad_token_id).int()
+                
+                # 使用模型的get_encoded_sequence方法
+                encoded_A = model.get_encoded_sequence(idsA, attention_mask_A)  # [B, L1, d]
+                encoded_B = model.get_encoded_sequence(idsB, attention_mask_B)  # [B, L2, d]
 
-            # build z lists for match
-            z0_list = [emA[b] for b in range(emA.size(0))]
-            z1_list = [emB[b] for b in range(emB.size(0))]
+                # 转换为列表格式（使用模型的em方法）
+                seq_lens_A_list = seq_lensA.cpu().tolist()
+                seq_lens_B_list = seq_lensB.cpu().tolist()
+                
+                z0_list = model.em(encoded_A, seq_lens_A_list)
+                z1_list = model.em(encoded_B, seq_lens_B_list)
 
-            # get match scores (按照参考程序的方式)
-            bert_scores, _ = model.match(z0_list, z1_list)  # 注意这里用 bert_scores
-            
-            B = idsA.size(0)
-            for b in range(B):
-                bert_score = bert_scores[b]  # [L1, L2]
+                # 获取match scores
+                bert_scores, _ = model.match(z0_list, z1_list)
                 
-                # 按照参考程序的方式flatten：注意是 .T 转置
-                bert_score_flat = torch.flatten(bert_score.T).tolist()
-                
-                # 获取序列字符串
-                sequence_a = seqA_list[b]  # 原始序列字符串
-                sequence_b = seqB_list[b]
-                
-                # 获取序列长度
-                seq_len_a = int(seq_lensA[b].item())
-                seq_len_b = int(seq_lensB[b].item())
-                
-                # gap参数
-                gap_open = getattr(model, "config", None) and getattr(model.config, "gap_opening", None)
-                gap_ext = getattr(model, "config", None) and getattr(model.config, "gap_extension", None)
-                if gap_open is None: gap_open = -1
-                if gap_ext is None: gap_ext = -1
-                
-                # 按照参考程序调用 global_aln (11个参数)
-                show_aln = 1 if verbose else 0
-                common_index_A_B = Aln_C.global_aln(
-                    bert_score_flat,           # 1. bert_score (flattened)
-                    [0] * len(bert_score_flat), # 2. 第二个参数 (全0列表)
-                    [0] * len(bert_score_flat), # 3. 第三个参数 (全0列表)  
-                    sequence_a,                # 4. sequence_a
-                    sequence_b,                # 5. sequence_b
-                    seq_len_a,                 # 6. seq_len_0
-                    seq_len_b,                 # 7. seq_len_1
-                    gap_open,                  # 8. gap_opening
-                    gap_ext,                   # 9. gap_extension
-                    show_aln,                  # 10. show_aln (x)
-                    0                          # 11. 最后一个参数
-                )
-                
-                common_index_A_B = torch.tensor(common_index_A_B).to(device).view(2, -1)  # [2, K]
-                
-                # 按照参考程序计算预测匹配数：使用二进制掩码方式
-                len_pred_match = int(torch.sum(common_index_A_B[0]))
-                
-                # 计算参考匹配对
-                # 从 pairA_list[b], pairB_list[b] 获取参考配对
-                if isinstance(pairA_list[b], torch.Tensor):
-                    refA_indices = pairA_list[b].cpu()
-                    refB_indices = pairB_list[b].cpu()
-                else:
-                    # 如果不是tensor，可能是其他格式，需要转换
-                    print(f"Warning: pairA_list[{b}] type: {type(pairA_list[b])}")
-                    continue
-                
-                len_ref_match = len(refA_indices)  # 参考配对数
-                
-                # 按照参考程序计算TP：使用 nonzero + 集合交集
-                # 预测的配对位置
-                pred_a_pos = (common_index_A_B[0] == 1).nonzero().flatten()
-                pred_b_pos = (common_index_A_B[1] == 1).nonzero().flatten()
-                pred_pairs = set((pred_a_pos * 10000 + pred_b_pos).tolist())
-                
-                # 参考配对位置
-                ref_pairs = set((refA_indices * 10000 + refB_indices).tolist())
-                
-                len_TP = len(pred_pairs & ref_pairs)
-                
-                # 累加统计
-                total_TP += len_TP
-                total_pred_match += len_pred_match  
-                total_ref_match += len_ref_match
+                B = idsA.size(0)
+                for b in range(B):
+                    try:
+                        bert_score = bert_scores[b]  # [L1, L2]
+                        
+                        # 获取实际序列长度
+                        seq_len_a = int(seq_lensA[b].item())
+                        seq_len_b = int(seq_lensB[b].item())
+                        
+                        # 检查序列长度有效性
+                        if seq_len_a <= 0 or seq_len_b <= 0:
+                            if verbose:
+                                print(f"Batch {batch_idx}, Sample {b}: Invalid sequence lengths A={seq_len_a}, B={seq_len_b}")
+                            continue
+                        
+                        if seq_len_a > bert_score.shape[0] or seq_len_b > bert_score.shape[1]:
+                            if verbose:
+                                print(f"Batch {batch_idx}, Sample {b}: Sequence length exceeds bert_score shape")
+                            continue
+                        
+                        # 使用simple_alignment（修复版本）
+                        common_index_A_B = model._simple_alignment(bert_score, seq_len_a, seq_len_b)
+                        
+                        # 检查对齐结果
+                        if common_index_A_B.shape[1] == 0:
+                            if verbose:
+                                print(f"Batch {batch_idx}, Sample {b}: No alignment found")
+                            continue
+                        
+                        # 获取预测的配对
+                        pred_a_indices = common_index_A_B[0].cpu()  # 预测的A序列位置
+                        pred_b_indices = common_index_A_B[1].cpu()  # 预测的B序列位置
+                        len_pred_match = len(pred_a_indices)
+                        
+                        # 获取参考配对
+                        if isinstance(pairA_list[b], torch.Tensor):
+                            refA_indices = pairA_list[b].cpu()
+                            refB_indices = pairB_list[b].cpu()
+                        elif isinstance(pairA_list[b], list):
+                            refA_indices = torch.tensor(pairA_list[b])
+                            refB_indices = torch.tensor(pairB_list[b])
+                        else:
+                            if verbose:
+                                print(f"Batch {batch_idx}, Sample {b}: Unknown pair format {type(pairA_list[b])}")
+                            continue
+                        
+                        len_ref_match = len(refA_indices)
+                        
+                        # 计算TP：预测配对与参考配对的交集
+                        # 使用配对编码的方式：(i, j) -> i * 10000 + j
+                        if len_pred_match > 0 and len_ref_match > 0:
+                            pred_pairs = set((pred_a_indices * 10000 + pred_b_indices).tolist())
+                            ref_pairs = set((refA_indices * 10000 + refB_indices).tolist())
+                            len_TP = len(pred_pairs & ref_pairs)
+                        else:
+                            len_TP = 0
+                        
+                        # 累加统计
+                        total_TP += len_TP
+                        total_pred_match += len_pred_match
+                        total_ref_match += len_ref_match
+                        
+                        if verbose and batch_idx < 3:  # 只打印前几个batch的详细信息
+                            print(f"Batch {batch_idx}, Sample {b}: TP={len_TP}, Pred={len_pred_match}, Ref={len_ref_match}")
+                            if len_pred_match > 0:
+                                print(f"  First few pred pairs: {list(zip(pred_a_indices[:3].tolist(), pred_b_indices[:3].tolist()))}")
+                            if len_ref_match > 0:
+                                print(f"  First few ref pairs: {list(zip(refA_indices[:3].tolist(), refB_indices[:3].tolist()))}")
+                        
+                    except Exception as e:
+                        if verbose:
+                            print(f"Error processing sample {b} in batch {batch_idx}: {e}")
+                        continue
+                        
+            except Exception as e:
+                if verbose:
+                    print(f"Error processing batch {batch_idx}: {e}")
+                continue
 
     # 计算最终指标
-    sens = total_TP / (total_ref_match + 1e-8)
-    ppv = total_TP / (total_pred_match + 1e-8)
+    sens = total_TP / (total_ref_match + 1e-8)  # Sensitivity (Recall)
+    ppv = total_TP / (total_pred_match + 1e-8)   # PPV (Precision)
     f1 = 2 * sens * ppv / (sens + ppv + 1e-8)
     
-    # if verbose:
-    #     print(f"Total - TP: {total_TP}, pred: {total_pred_match}, ref: {total_ref_match}")
-    #     print(f"Sensitivity: {sens:.4f}, PPV: {ppv:.4f}, F1: {f1:.4f}")
+    if verbose:
+        print(f"\n=== Final Results ===")
+        print(f"Total TP: {total_TP}")
+        print(f"Total Predicted: {total_pred_match}")
+        print(f"Total Reference: {total_ref_match}")
+        print(f"Sensitivity (Recall): {sens:.4f}")
+        print(f"PPV (Precision): {ppv:.4f}")
+        print(f"F1 Score: {f1:.4f}")
     
     return f1, sens, ppv
 
-
-
-
-
-# TODO: 写其他任务的训练
 # 这里已经把预训练好的参数固定好成为一个单独的模型（也就是说对当前任务的finetune不会影响到其他任务）
 def cls_train_epoch(model, device, train_loader, optimizer, scheduler):
     set_seed()

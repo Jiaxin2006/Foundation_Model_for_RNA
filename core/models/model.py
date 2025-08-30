@@ -952,20 +952,22 @@ class SecondaryStructureAlignmentModel(nn.Module):
             bert_score, common_index_0, seq_len_0, common_index_1, seq_len_1
         )
         
-        try:
-            import alignment_C as Aln_C
-            common_index_A_B = Aln_C.global_aln(
-                torch.flatten(bert_score.T).tolist(), 
-                torch.flatten(margin_mat_FP.T).tolist(), 
-                torch.flatten(margin_mat_FN.T).tolist(), 
-                sequence_a, sequence_b, seq_len_0, seq_len_1, 
-                self.config.gap_opening, self.config.gap_extension, 0, 0
-            )
-            common_index_A_B = torch.tensor(common_index_A_B).to(self.device).view(2, -1)
-        except ImportError:
-            print("[Warning] alignment_C not found, using simplified alignment")
-            # 这里可以实现一个简化的对齐算法
-            common_index_A_B = self._simple_alignment(bert_score, seq_len_0, seq_len_1)
+        # alnC版本
+        # try:
+        #     import alignment_C as Aln_C
+        #     common_index_A_B = Aln_C.global_aln(
+        #         torch.flatten(bert_score.T).tolist(), 
+        #         torch.flatten(margin_mat_FP.T).tolist(), 
+        #         torch.flatten(margin_mat_FN.T).tolist(), 
+        #         sequence_a, sequence_b, seq_len_0, seq_len_1, 
+        #         self.config.gap_opening, self.config.gap_extension, 0, 0
+        #     )
+        #     common_index_A_B = torch.tensor(common_index_A_B).to(self.device).view(2, -1)
+        # except ImportError:
+        #     print("[Warning] alignment_C not found, using simplified alignment")
+        
+        # 简化版本
+        common_index_A_B = self._simple_alignment(bert_score, seq_len_0, seq_len_1)
         
         prediction_alignment_score = self.calc_reference_alignment_score(
             bert_score, common_index_A_B[0], seq_len_0, common_index_A_B[1], seq_len_1
